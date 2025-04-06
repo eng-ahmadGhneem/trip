@@ -1,0 +1,60 @@
+name: trip
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.2 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  get: ^4.6.6
+  http: ^1.1.0
+  csv: ^5.0.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  lottie: ^2.6.0
+  sms_autofill: ^2.4.1
+  pin_code_fields: ^8.0.1
+  carousel_slider: ^4.0.0
+  shared_preferences: ^2.2.1
+  url_launcher: ^6.1.14
+  google_sign_in:
+  flutter_email_sender:
+  youtube_player_flutter: ^8.1.0
+  curved_navigation_bar: ^1.0.3
+  flutter_settings_screens: ^0.3.2
+  awesome_dialog: ^3.2.1
+  firebase_core: any
+  firebase_auth: any
+  cloud_firestore: any
+  intl: ^0.20.2
+  flutter_reaction_button: ^2.0.0
+  share_plus: ^6.0.0
+  cupertino_icons: ^1.0.6
+  image_picker: ^1.0.4
+  firebase_storage: ^11.6.6
+  google_maps_flutter: ^2.5.0
+  dartz: ^0.10.1
+  sign_in_with_apple: ^7.0.1
+  font_awesome_flutter: ^10.8.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/animation/
+    - assets/icons/
+  fonts:
+    - family: Neo Sans Arabic
+      fonts:
+        - asset: assets/fonts/NeoSansArabic.ttf
+    - family: Cadillac Sans Arabic Medium
+      fonts:
+        - asset: assets/fonts/Cadillac-Sans-Arabic-Medium.ttf

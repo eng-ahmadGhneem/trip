@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "649161144772",
+    "project_id": "relic-707e7",
+    "storage_bucket": "relic-707e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649161144772:android:118c5184f1967ae2888c91",
+        "android_client_info": {
+          "package_name": "com.hasanahmad.trip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649161144772-180p8vo7f19ln30p8nftafurmbooft2d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX-txkvWvANKmqb-Kic69M_MA5nrLlOCI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649161144772-180p8vo7f19ln30p8nftafurmbooft2d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "649161144772-69079nlqtu4i4js2ttuks5a44j006lvf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.relic"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
