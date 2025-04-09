@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip/core/constant/routes.dart';
+import 'package:trip/widget/loading.dart';
 import '../../../core/constant/assets.dart';
 import '../../../core/constant/color.dart';
+import '../../../widget/custom_elevated_button.dart';
 import '../../../widget/custom_text.dart';
 import '../../../widget/custom_text_form_filed.dart';
 import '../controller/auth_controller.dart';
@@ -90,29 +92,19 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 20),
 
                       // Login button
-                      GestureDetector(
-                        onTap: () {
+
+                      CustomElevatedButton(
+                        text: 'Log In',
+                        buttonColor: AppColor.appColor,
+                        onPressed: () {
                           if (controller.formKeyLog.currentState!.validate()) {
                             controller.loginWithEmail(
                               controller.emailController.text.trim(),
                               controller.passwordController.text.trim(),
                             );
                           }
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          decoration: BoxDecoration(
-                            color: AppColor.appColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Center(
-                            child: CustomText(
-                              text: 'Log In',
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                          }
+
                       ),
 
                       const SizedBox(height: 20),

@@ -24,7 +24,7 @@ class Assets {
 
 
   //icons
-  static const String arrowBack = "$rootIcons/arrow_back.png";
+  // static const String arrowBack = "$rootIcons/arrow_back.png";
 
   static const String registerSuccessful = "$rootIcons/register_successful.png";
  static const String  verEmail = "$rootIcons/ver_email.png";

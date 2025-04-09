@@ -1,3 +1,4 @@
+import 'package:trip/core/constant/routes.dart';
 import 'package:trip/view/auth/screen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -86,26 +87,7 @@ class ProfileScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Obx(() => CustomText(
-                //   text: authController.username.value,
-                //   fontWeight: FontWeight.bold,
-                //   fontSize: 18,
-                //   color: Colors.white,
-                // )),
-                // const SizedBox(height: 4),
-                // Obx(() => CustomText(
-                //   text: authController.email.value,
-                //   fontSize: 14,
-                //   color: Colors.white70,
-                // )),
-                // const SizedBox(height: 8),
-                // Obx(() => CustomText(
-                //   text: "تبقى لك ${authController.remainingDays.value} يومًا",
-                //   fontSize: 14,
-                //   color: Colors.yellow,
-                //
-                // )
-                // ),
+
               ],
             ),
           ],
@@ -129,12 +111,16 @@ Widget buildSpeed() => SimpleSettingsTile(
     title: 'كورساتي',
     leading: const Icon(Icons.menu_book, color: Colors.lightGreenAccent),
     onTap: () async {
+      Get.toNamed(AppRoutes.balanceScreen);
     });
 
 Widget buildGoPremium() => SimpleSettingsTile(
     title: 'الخطة المدفوعة',
     leading: const Icon(Icons.workspace_premium, color: Colors.green),
-    onTap: () async {});
+    onTap: () async {
+
+      Get.toNamed(AppRoutes.leaveTraceScreen);
+    });
 
 Widget buildDeleteAccount() => SimpleSettingsTile(
     title: 'حذف حسابي',
@@ -147,10 +133,7 @@ Widget buildDeleteAccount() => SimpleSettingsTile(
         textCancel: "إلغاء",
         confirmTextColor: Colors.white,
         onConfirm: () {
-          // تحميل AuthController إذا لم يكن موجودًا
           Get.lazyPut(() => AuthController());
-
-          // الحصول على الـ Controller بعد التأكد من وجوده
           AuthController authController = Get.find<AuthController>();
           authController.deleteAccount();
         },

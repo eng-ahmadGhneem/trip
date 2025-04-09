@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip/core/constant/assets.dart';
 import '../../../core/constant/color.dart';
-import '../../../widget/custom_buttom_navbar_widget.dart';
+import '../../../widget/custom_button_navbar_widget.dart';
 import '../../../widget/custom_elevated_button.dart';
 import '../../../widget/custom_text.dart';
 

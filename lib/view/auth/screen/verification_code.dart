@@ -28,13 +28,7 @@ class EmailVerificationScreen extends StatelessWidget {
                       onTap: () {
                         Get.toNamed(AppRoutes.login);
                       },
-                      child: Image.asset(
-                        Assets.arrowBack,
-                        color: AppColor.white,
-                        fit: BoxFit.fill,
-                        height: 20,
-                        width: 20,
-                      ),
+                      child: const Icon(Icons.arrow_back_ios, color: Colors.white),
                     ),
                     const Spacer(),
                     CustomText(

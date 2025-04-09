@@ -6,8 +6,9 @@ import 'package:trip/binding/initial_bindings.dart';
 import 'package:trip/core/constant/routes.dart';
 import 'package:trip/data/helpers/pref.dart';
 import 'package:trip/routes.dart';
-
 import 'firebase_options.dart';
+
+
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();

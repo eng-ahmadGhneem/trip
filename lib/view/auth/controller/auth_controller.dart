@@ -7,15 +7,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:trip/data/helpers/my_dialogs.dart';
-import '../../../widget/custom_buttom_navbar_widget.dart';
+import '../../../widget/custom_button_navbar_widget.dart';
 import '../screen/login_screen.dart';
 import '../screen/success_registration_screen.dart';
-import '../screen/verfication_code.dart';
+import '../screen/verification_code.dart';
 
 class AuthController extends GetxController {
-
-
-
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
@@ -28,6 +25,7 @@ class AuthController extends GetxController {
   final GlobalKey<FormState> formKeyLog = GlobalKey<FormState>();
   var gender = 'Male'.obs;
   File? profileImage;
+  bool isLoading=false;
 
   @override
   void onClose() {
@@ -50,6 +48,8 @@ class AuthController extends GetxController {
   }
   Future<void> registerWithEmail(String email, String password, String username) async {
     try {
+      isLoading=true;
+      update();
       final UserCredential userCredential =
       await auth.createUserWithEmailAndPassword(email: email, password: password);
       String userId = userCredential.user!.uid;
@@ -79,13 +79,19 @@ class AuthController extends GetxController {
       MyDialogs.success(msg: 'Verification email sent. Please check your inbox.');
 
       Get.to(() =>  const EmailVerificationScreen());
+      isLoading=false;
+      update();
 
     } on FirebaseAuthException catch (e) {
+      isLoading=false;
+      update();
       MyDialogs.error(msg: 'Registration failed: ${e.message}');
     }
   }
   Future<void> loginWithEmail(String email, String password) async {
     try {
+      isLoading=true;
+      update();
       final UserCredential userCredential =
       await auth.signInWithEmailAndPassword(email: email, password: password);
 
@@ -98,7 +104,11 @@ class AuthController extends GetxController {
 
       MyDialogs.success(msg: 'Logged in successfully!');
       Get.offAll(() => const CustomBottomNavigationWidget());
+      isLoading=false;
+      update();
     } on FirebaseAuthException catch (e) {
+      isLoading=false;
+      update();
       if (e.code == 'user-not-found') {
         MyDialogs.error(msg: 'No user found for that email.');
       } else if (e.code == 'wrong-password') {
@@ -149,6 +159,8 @@ class AuthController extends GetxController {
     }
   }
   Future<void> checkVerification() async {
+    isLoading=true;
+    update();
     User? user = FirebaseAuth.instance.currentUser;
     await user?.reload();
 
@@ -158,9 +170,13 @@ class AuthController extends GetxController {
           'isEmailVerified': true,
         });
         Get.offAll(() => const SuccessRegistrationScreen());
+        isLoading=false;
+        update();
       } else {
         Get.snackbar('Email Not Verified', 'Please verify your email first.',
             backgroundColor: Colors.red, colorText: Colors.white);
+        isLoading=false;
+        update();
       }
     }
   }

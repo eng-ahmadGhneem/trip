@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:trip/view/auth/screen/login_screen.dart';
-import '../../../widget/custom_buttom_navbar_widget.dart';
+import '../../../widget/custom_button_navbar_widget.dart';
 
 class SplashController extends GetxController {
   @override

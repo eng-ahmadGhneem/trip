@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:trip/core/constant/color.dart';
 import 'package:trip/view/account/screen/account_screen.dart';
+import '../view/gifts/screen/gifts_screen.dart';
 import '../view/home/screen/home_screen.dart';
-
 
 class CustomBottomNavigationWidget extends StatefulWidget {
   const CustomBottomNavigationWidget({super.key});
@@ -19,8 +18,8 @@ class _CustomBottomNavigationWidgetState
 
   final _screens = [
     const ARMapScreen(),
-     ProfileScreen(),
-     ProfileScreen(),
+    const GiftsMapScreen(),
+    ProfileScreen(),
   ];
 
   @override
@@ -61,10 +60,10 @@ class _CustomBottomNavigationWidgetState
                     const SizedBox(height: 4),
                     _currentIndex == 0
                         ? Container(
-                      width: 20,
-                      height: 3,
-                      color: AppColor.appColor,
-                    )
+                            width: 20,
+                            height: 3,
+                            color: AppColor.appColor,
+                          )
                         : const SizedBox(height: 3),
                   ],
                 ),
@@ -77,10 +76,10 @@ class _CustomBottomNavigationWidgetState
                     const SizedBox(height: 4),
                     _currentIndex == 1
                         ? Container(
-                      width: 20,
-                      height: 3,
-                      color: AppColor.appColor,
-                    )
+                            width: 20,
+                            height: 3,
+                            color: AppColor.appColor,
+                          )
                         : const SizedBox(height: 3),
                   ],
                 ),
@@ -93,10 +92,10 @@ class _CustomBottomNavigationWidgetState
                     const SizedBox(height: 4),
                     _currentIndex == 2
                         ? Container(
-                      width: 20,
-                      height: 3,
-                      color: AppColor.appColor,
-                    )
+                            width: 20,
+                            height: 3,
+                            color: AppColor.appColor,
+                          )
                         : const SizedBox(height: 3),
                   ],
                 ),
@@ -104,7 +103,6 @@ class _CustomBottomNavigationWidgetState
               ),
             ],
           ),
-
         ),
       ),
     );
