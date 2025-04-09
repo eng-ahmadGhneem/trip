@@ -17,11 +17,6 @@ class GiftsMapScreen extends StatefulWidget {
 class _GiftsMapScreenState extends State<GiftsMapScreen> with SingleTickerProviderStateMixin {
   late GoogleMapController mapController;
   final LatLng _center = const LatLng(24.7136, 46.6753);
-
-  bool _showActions = false;
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,37 +41,11 @@ class _GiftsMapScreenState extends State<GiftsMapScreen> with SingleTickerProvid
           Positioned(
             right: 16,
             bottom: 10,
-            child: Column(
-              children: [
-                AnimatedSlide(
-                  duration: const Duration(milliseconds: 300),
-                  offset: _showActions ? Offset.zero : const Offset(0, 1),
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 300),
-                    opacity: _showActions ? 1 : 0,
-                    child: CircleButtonWidget(icon:Icons.notifications, height: 40,width: 40,),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                AnimatedSlide(
-                  duration: const Duration(milliseconds: 300),
-                  offset: _showActions ? Offset.zero : const Offset(0, 1),
-                  child: AnimatedOpacity(
-                    duration: const Duration(milliseconds: 300),
-                    opacity: _showActions ? 1 : 0,
-                    child: CircleButtonWidget(icon:Icons.camera_alt,height: 50,width: 50),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _showActions = !_showActions;
-                    });
-                  },
-                  child: CircleButtonWidget(icon:Icons.add,height: 60,width: 60),
-                ),
-              ],
+            child: GestureDetector(
+              onTap: () {
+           Get.toNamed(AppRoutes.giftsShoppingListScreen);
+              },
+              child: CircleButtonWidget(icon:Icons.add,height: 60,width: 60),
             ),
           ),
         ],
@@ -93,11 +62,11 @@ class _GiftsMapScreenState extends State<GiftsMapScreen> with SingleTickerProvid
     ];
 
     final List<Color> colors = [
-      Colors.blue,
-      Colors.purple,
-      Colors.orange,
-      Colors.pink,
-      Colors.deepOrange,
+      Color(0xffff66c4),
+      Color(0xffff66c4),
+      Color(0xffff66c4),
+      Color(0xffff66c4),
+      Color(0xffff66c4),
     ];
 
     return List.generate(
@@ -115,13 +84,7 @@ class _GiftsMapScreenState extends State<GiftsMapScreen> with SingleTickerProvid
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: colors[index].withOpacity(0.2),
-              boxShadow: [
-                BoxShadow(
-                  color: colors[index].withOpacity(0.6),
-                  blurRadius: 25,
-                  spreadRadius: 5,
-                ),
-              ],
+
             ),
             child: Center(
               child: Icon(

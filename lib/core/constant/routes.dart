@@ -13,11 +13,10 @@ class AppRoutes {
   static const String arTakePhotoScreen = "/arTakePhotoScreen";
   static const String leaveTraceScreen = "/leaveTraceScreen";
   static const String notificationScreen = "/notificationScreen";
-
+  static const String settingsScreen = "/settingsScreen";
 
 
   static const String locationScreen = "/locationScreen";
-  static const String accountScreen = "/accountScreen";
   static const String helpScreen = "/helpScreen";
   static const String privacyPolicyScreen = "/privacyPolicyScreen";
   static const String subscriptionTermsScreen = "/subscriptionTermsScreen";

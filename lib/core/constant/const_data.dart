@@ -1,3 +1,7 @@
+import '../../view/account/screen/profile_screen.dart';
+import '../../view/gifts/screen/gifts_screen.dart';
+import '../../view/home/screen/home_screen.dart';
+
 class ConstData {
   // Dark mode map style
   static String darkMapStyle = '''
@@ -116,5 +120,9 @@ class ConstData {
   }
 ]
 ''';
-
+   static final screens = [
+    const ARMapScreen(),
+    const GiftsMapScreen(),
+    const ProfileScreen(),
+  ];
 }

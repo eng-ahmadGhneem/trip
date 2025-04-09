@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip/core/constant/color.dart';
+import 'package:trip/core/constant/routes.dart';
 import 'package:trip/widget/custom_text.dart';
 import '../widget/gift_item_widget.dart';
 import '../widget/payment_item.dart';
@@ -36,7 +37,11 @@ class GiftsShoppingListScreen extends StatelessWidget {
                   color: AppColor.lightGrey,
                 ),
                 const Spacer(),
-                Icon(Icons.notifications, color: AppColor.white),
+                InkWell(
+                    onTap: (){
+                      Get.toNamed(AppRoutes.balanceScreen);
+                    },
+                    child: Icon(Icons.wallet, color: AppColor.white)),
               ],
             ),
             const SizedBox(height: 40,),

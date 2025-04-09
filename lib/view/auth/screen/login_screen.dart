@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip/core/constant/routes.dart';
-import 'package:trip/widget/loading.dart';
 import '../../../core/constant/assets.dart';
 import '../../../core/constant/color.dart';
 import '../../../widget/custom_elevated_button.dart';

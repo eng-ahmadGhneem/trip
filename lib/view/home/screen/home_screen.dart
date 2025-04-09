@@ -34,7 +34,7 @@ class _ARMapScreenState extends State<ARMapScreen> with SingleTickerProviderStat
             },
             initialCameraPosition: CameraPosition(
               target: _center,
-              zoom: 15.0,
+              zoom: 18.0,
             ),
             mapType: MapType.normal,
             zoomControlsEnabled: false,
@@ -75,13 +75,27 @@ class _ARMapScreenState extends State<ARMapScreen> with SingleTickerProviderStat
                   ),
                 ),
                 const SizedBox(height: 10),
+                AnimatedSlide(
+                  duration: const Duration(milliseconds: 300),
+                  offset: _showActions ? Offset.zero : const Offset(0, 1),
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 300),
+                    opacity: _showActions ? 1 : 0,
+                    child: GestureDetector(
+                        onTap: (){
+                          Get.toNamed(AppRoutes.leaveTraceScreen);
+                        },
+                        child: CircleButtonWidget(icon:Icons.add,height: 50,width: 50)),
+                  ),
+                ),
+                const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
                     setState(() {
                       _showActions = !_showActions;
                     });
                   },
-                  child: CircleButtonWidget(icon:Icons.add,height: 60,width: 60),
+                  child: CircleButtonWidget(icon:Icons.fingerprint,height: 60,width: 60),
                 ),
               ],
             ),

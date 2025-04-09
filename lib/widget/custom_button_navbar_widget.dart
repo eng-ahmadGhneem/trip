@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trip/core/constant/color.dart';
-import 'package:trip/view/account/screen/account_screen.dart';
-import '../view/gifts/screen/gifts_screen.dart';
-import '../view/home/screen/home_screen.dart';
+import 'package:trip/core/constant/const_data.dart';
 
 class CustomBottomNavigationWidget extends StatefulWidget {
   const CustomBottomNavigationWidget({super.key});
@@ -16,16 +14,12 @@ class _CustomBottomNavigationWidgetState
     extends State<CustomBottomNavigationWidget> {
   int _currentIndex = 0;
 
-  final _screens = [
-    const ARMapScreen(),
-    const GiftsMapScreen(),
-    ProfileScreen(),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
+      body: ConstData.screens[_currentIndex],
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(

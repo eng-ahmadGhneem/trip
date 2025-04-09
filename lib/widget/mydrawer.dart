@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trip/core/constant/assets.dart';
 import 'package:trip/core/constant/color.dart';
-import 'package:trip/view/account/screen/account_screen.dart';
+import 'package:trip/view/account/screen/settings_screen.dart';
 import 'package:trip/widget/drawr_item.dart';
 
 import '../view/home/screen/home_screen.dart';
@@ -96,7 +96,7 @@ class _MyDrawerState extends State<MyDrawer> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProfileScreen()));
+                builder: (context) => SettingsScreen()));
 
         break;
         case 3:
