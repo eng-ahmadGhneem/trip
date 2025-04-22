@@ -1,135 +1,113 @@
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
+import 'dart:ui';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+class HomeController extends GetxController {
+  LatLng? _currentLocation;
+  Set<Marker> _markers = {};
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-enum Entitlement { free, Upgrade }
-
-class HomeController extends GetxController with WidgetsBindingObserver {
-  Rx<int> x = 0.obs;
+  RxList<Map<String, dynamic>> arIconsData = <Map<String, dynamic>>[].obs;
 
   @override
   void onInit() {
-    WidgetsBinding.instance.addObserver(this);
-
-    print('init home controller');
-    // init();
+    _getCurrentLocation();
+    loadARIconsData();
     super.onInit();
   }
 
-  Future getSavedData(
-    String key,
-  ) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.getString("amount");
+
+
+  Future<void> loadARIconsData() async {
+    try {
+      QuerySnapshot snapshot = await _firestore.collection('ar_icons').get();
+      List<Map<String, dynamic>> data = snapshot.docs.map((doc) {
+        return {
+          'position': Offset(doc['x_position'], doc['y_position']),
+          'color': Color(int.parse('0xFF${doc['color']}')),
+        };
+      }).toList();
+      arIconsData.value = data;
+    } catch (e) {
+      print("Error loading AR icons data: $e");
+    }
   }
 
-  // Future init() async {
-  //   Purchases.addCustomerInfoUpdateListener((purchaserInfo) async {
-  //     updatePurchasesStatus();
-  //   });
-  // }
+  Future<void> _getCurrentLocation() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
 
-  Future<void> saveData(String key, String value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, value);
+    if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      _currentLocation = LatLng(position.latitude, position.longitude);
+      update();
+      loadMarkers();
+    }
   }
 
-  String newAmount = '';
+  Future<void> loadMarkers() async {
+    List<Marker> markers = [];
+    try {
+      QuerySnapshot provincesSnapshot = await _firestore.collection('map_home').get();
 
-  // Future<void> updatePurchasesStatus() async {
-  //   print('ConstData.amount updatefirst=${ConstData.amount}');
-  //   try {
-  //     final purchaserInfo = await Purchases.getCustomerInfo();
-  //     final activeSubscriptionList = purchaserInfo.activeSubscriptions;
-  //
-  //     if (activeSubscriptionList.isNotEmpty) {
-  //       if (ConstData.amount == "") {
-  //         print('before for loop');
-  //         for (final promotedProd in activeSubscriptionList) {
-  //           if (promotedProd.contains('week')) {
-  //             newAmount = '8.99';
-  //             // ConstData.amount = '8.99';
-  //           } else if (promotedProd.contains('month')) {
-  //             newAmount = '13.99';
-  //             // ConstData.amount = '13.99';
-  //           } else if (promotedProd.contains('year')) {
-  //             newAmount = '74.99';
-  //             // ConstData.amount = '74.99';
-  //           }
-  //           print("promotedProd: $promotedProd");
-  //           print('ConstData.amount updatelast=${ConstData.amount}');
-  //           await saveData('amount', newAmount);
-  //           ConstData.amount = newAmount;
-  //         }
-  //         print("ConstData.amount=${ConstData.amount}");
-  //       } else {
-  //         print('else != empty');
-  //         Get.dialog(const AlertDialog(
-  //           title: CustomText(
-  //             text: 'You\'r already subscriber,',
-  //           ),
-  //         ));
-  //         Get.back();
-  //       }
-  //     } else {
-  //       print("User does not have an active subscription.");
-  //     }
-  //     print('ConstData.amount updatelast=${ConstData.amount}');
-  //
-  //     update();
-  //   } catch (e) {
-  //     print("Error updating purchases status: $e");
-  //   }
-  // }
-  // Future<void> purchaseCourse(String courseId) async {
-  //   try {
-  //     // Perform the purchase
-  //     final purchaserInfo = await Purchases.purchaseProduct(courseId);
-  //     if (purchaserInfo.entitlements.all['premium'] != null) {
-  //       // If the purchase is successful, update the UI
-  //       updatePurchasesStatus();
-  //     }
-  //   } catch (e) {
-  //     print("Error purchasing course: $e");
-  //   }
-  // }
-  // Future<void> showPaymentDialog() async {
-  //   showDialog(
-  //     context: Get.context!,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const CustomText(text: 'Payment Required'),
-  //         content: const CustomText(
-  //           text: 'To download this course, please complete the payment process.',
-  //         ),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               Get.back();
-  //             },
-  //             child: const CustomText(text: 'Cancel'),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               // Navigate to the payment screen
-  //               Get.back();
-  //             },
-  //             child: const CustomText(text: 'Proceed to Payment'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+      for (var provinceDoc in provincesSnapshot.docs) {
+        String provinceName = provinceDoc['name'];
+        double provinceLat = double.parse(provinceDoc['latitude'].toString());
+        double provinceLng = double.parse(provinceDoc['longitude'].toString());
 
-  bool isAppInForeground = true;
+        markers.add(Marker(
+          markerId: MarkerId(provinceDoc.id),
+          position: LatLng(provinceLat, provinceLng),
+          infoWindow: InfoWindow(title: provinceName),
+        ));
 
-  @override
-  void onClose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.onClose();
+        // Load fingerprints for each province
+        QuerySnapshot fingerprintsSnapshot = await _firestore
+            .collection('map_home')
+            .doc(provinceDoc.id)
+            .collection('fingerprints')
+            .get();
+
+        for (var fingerprintDoc in fingerprintsSnapshot.docs) {
+          String colorHex = fingerprintDoc['color'];
+          double lat = double.parse(fingerprintDoc['latitude'].toString());
+          double lng = double.parse(fingerprintDoc['longitude'].toString());
+          Uint8List customIcon = await _getCustomMarkerIcon(colorHex);
+
+          markers.add(Marker(
+            markerId: MarkerId(fingerprintDoc.id),
+            position: LatLng(lat, lng),
+            infoWindow: InfoWindow(title: 'Fingerprint ${fingerprintDoc.id}'),
+            icon: BitmapDescriptor.fromBytes(customIcon),
+          ));
+        }
+      }
+
+      _markers = markers.toSet();
+      update();
+    } catch (e) {
+      print("Error loading data: $e");
+    }
   }
 
-  final RxBool isLoading = false.obs;
+  Future<Uint8List> _getCustomMarkerIcon(String hexColor) async {
+    final paint = Paint()..color = Color(int.parse('0xFF$hexColor'));
+    final recorder = PictureRecorder();
+    final canvas = Canvas(recorder, Rect.fromPoints(const Offset(0, 0), const Offset(100, 100)));
+
+    // Draw a circle with the selected color
+    canvas.drawCircle(const Offset(50, 50), 30, paint);
+    final picture = recorder.endRecording();
+    final img = await picture.toImage(100, 100);
+    final byteData = await img.toByteData(format: ImageByteFormat.png);
+    return byteData!.buffer.asUint8List();
+  }
+
+  Set<Marker> get markers => _markers;
+  LatLng? get currentLocation => _currentLocation;
 }

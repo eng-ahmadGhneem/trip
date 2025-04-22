@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
+import '../../../data/helpers/my_dialogs.dart';
+import '../../auth/screen/login_screen.dart';
+
 class AccountController extends GetxController {
   var userName = ''.obs;
   var email = ''.obs;
@@ -40,6 +43,28 @@ class AccountController extends GetxController {
       }
     } catch (e) {
       print("Error fetching user data: $e");
+    }
+  }
+  Future<void> deleteAccount() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        String userId = user.uid;
+
+        await FirebaseFirestore.instance.collection('users').doc(userId).delete();
+
+
+        await user.delete();
+
+        await FirebaseAuth.instance.signOut();
+
+        Get.offAll(() => const LoginScreen());
+
+        MyDialogs.success(msg: 'تم حذف الحساب بنجاح');
+      }
+    } catch (e) {
+      MyDialogs.error(msg: 'حدث خطأ أثناء حذف الحساب: $e');
     }
   }
 

@@ -16,11 +16,50 @@ class NotificationScreen extends StatelessWidget {
       body: SafeArea(
         child: Obx(() {
           if (controller.notifications.isEmpty) {
-            return const Center(
-              child: Text(
-                "No notifications yet.",
-                style: TextStyle(color: Colors.white70),
-              ),
+            return Column(
+              children: [
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(Icons.arrow_back_ios, color:AppColor.white),
+                    ),const Spacer(),
+                    CustomText(
+                      text:
+                      "Notifications",
+                      color: AppColor.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.thumb_up),
+                      onPressed: () {
+
+                        controller.sendNotification(
+                          senderId: "123",
+                          senderName: "Ahmed",
+                          senderImage: "https://link.to/profile.jpg",
+                          receiverId: "456",
+                          action: "تم اضافة بصمة في منطقة الرياض",
+                        );
+                      },
+                    )
+
+                  ],
+                ),
+                const Spacer(),
+                const Center(
+                  child: Text(
+                    "No notifications yet.",
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ),
+                const Spacer()
+              ],
             );
           }
           return Padding(
@@ -44,7 +83,21 @@ class NotificationScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
 
                     ),
-                    const Spacer()
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.thumb_up),
+                      onPressed: () {
+
+                        controller.sendNotification(
+                          senderId: "123",
+                          senderName: "Ahmed",
+                          senderImage: "https://link.to/profile.jpg",
+                          receiverId: "456",
+                          action: "liked your post",
+                        );
+                      },
+                    )
+
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -57,17 +110,18 @@ class NotificationScreen extends StatelessWidget {
                       return ListTile(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                         leading: CircleAvatar(
-                          backgroundImage: NetworkImage(notification.imageUrl),
+                          backgroundImage: NetworkImage(notification.senderImage),
                           radius: 25,
                         ),
                         title: Text(
-                          notification.username,
+                          notification.senderName,
                           style: const TextStyle(color: Colors.white),
                         ),
                         subtitle: Text(
-                          notification.time,
+                          "${notification.action} • ${controller.formatTime(notification.timestamp)}",
                           style: const TextStyle(color: Colors.white54, fontSize: 12),
                         ),
+
                         trailing: IconButton(
                           icon: const Icon(Icons.more_vert, color: Colors.white),
                           onPressed: () => controller.showOptions(notification),

@@ -7,17 +7,21 @@ import 'package:trip/core/constant/routes.dart';
 import 'package:trip/data/helpers/pref.dart';
 import 'package:trip/routes.dart';
 import 'firebase_options.dart';
-
-
-
-main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await Pref.initializeHive();
-  await Settings.init(cacheProvider: SharePreferenceCache());
-  runApp(const MyApp());
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await Pref.initializeHive();
+    await Settings.init(cacheProvider: SharePreferenceCache());
+
+    runApp(const MyApp());
+  } catch (e, stack) {
+    debugPrint('Startup error: $e');
+    debugPrint('Stack trace: $stack');
+  }
 }
 
 class MyApp extends StatelessWidget {

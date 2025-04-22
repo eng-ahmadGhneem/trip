@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip/view/account/widgets/profile_header.dart';
 
+import '../../auth/screen/login_screen.dart';
 import '../controller/account_controller.dart';
 import '../widgets/profile_row.dart';
 
@@ -61,20 +63,35 @@ class SettingsScreen extends StatelessWidget {
                       fontSize: 18,
                     ),
                   ),
-                  const SizedBox(width: 5),
-                  const Icon(Icons.edit, color: Colors.white, size: 16),
                 ],
               )),
 
               const SizedBox(height: 10),
-              const Text(
-                'PROFILE DATA',
-                style: TextStyle(
-                  color: Colors.greenAccent,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text(
+                    'PROFILE DATA',
+                    style: TextStyle(
+                      color: Colors.greenAccent,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.shade800,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                    ),
+                    child: const Text("Edit Data", style: TextStyle(color: Colors.white)),
+                  ),
+                ],
               ),
+
               const SizedBox(height: 20),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -96,7 +113,7 @@ class SettingsScreen extends StatelessWidget {
                       icon: Icons.person,
                       title: "Name",
                       value: accountController.userName.value,
-                      editable: true,
+
                     ),
                     const Divider(color: Colors.white24),
                     ProfileRow(
@@ -120,6 +137,40 @@ class SettingsScreen extends StatelessWidget {
                 ))
 
               ),
+              const SizedBox(height: 20,),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                      Get.offAll(const LoginScreen());},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.shade800,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                    ),
+                    child: const Text("Log OUT", style: TextStyle(color: Colors.white)),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      accountController.deleteAccount();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.shade800,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                    ),
+                    child: const Text("Delete Account", style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
+
             ],
           ),
         ),

@@ -1,7 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:trip/core/constant/routes.dart';
 import '../../../core/constant/color.dart';
+import '../../../widget/custom_button_navbar_widget.dart';
 import '../../../widget/custom_text.dart';
 import '../controller/ar_map_controller.dart';
 
@@ -21,35 +24,40 @@ class ArTakePhotoScreen extends StatelessWidget {
 
         return Column(
           children: [
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.back();
+                      Get.toNamed(AppRoutes.buttonNavBarScreen);
                     },
                     child: Icon(Icons.arrow_back_ios, color: AppColor.white),
                   ),
                   const Spacer(),
                   CustomText(
-                    text: 'Take AR',
+                    text: 'Add Trace',
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                     color: AppColor.lightGrey,
                   ),
                   const Spacer(),
                   IconButton(
-                    icon:  Icon(Icons.info_outline,color: AppColor.white,),
+                    icon:  Icon(Icons.arrow_circle_down_sharp,color: AppColor.white,),
                     onPressed: () {
-                      Get.snackbar("معلومات", "اضغط على زر البصمة لالتقاط صورة اللواقع الافتراضي.");
+
+                      Get.to(() => const CustomBottomNavigationWidget(),
+                        transition: Transition.upToDown,
+                        duration: const Duration(milliseconds: 500),
+                      );
+
                     },
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
@@ -60,16 +68,38 @@ class ArTakePhotoScreen extends StatelessWidget {
             ),
 
 
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
 
             Center(
-              child: GestureDetector(
-                onTap: () => controller.takePicture(),
-                child: const Icon(
-                  Icons.fingerprint,
-                  size: 80,
-                  color: Colors.blueAccent,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () => controller.takePicture(),
+                    child: const Icon(
+                      Icons.fingerprint,
+                      size: 50,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => controller.takePicture(),
+                    child:  Icon(
+                      BoxIcons.bx_camera,
+                      size: 50,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+
+                  GestureDetector(
+                    onTap: () => controller.takePicture(),
+                    child:  Icon(
+                      BoxIcons.bx_gift,
+                      size: 50,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

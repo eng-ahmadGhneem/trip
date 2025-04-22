@@ -18,6 +18,7 @@ List<GetPage<dynamic>>? routes = [
   GetPage(
     name:AppRoutes.buttonNavBarScreen,
     page: () =>  const CustomBottomNavigationWidget(),
+
   ),
   GetPage(
     name:AppRoutes.splashScreen,
@@ -63,15 +64,10 @@ List<GetPage<dynamic>>? routes = [
   ),
   GetPage(
     name: AppRoutes.settingsScreen,
-    page: () => SettingsScreen(),
+    page: () => const SettingsScreen(),
   ),
 
 
-
-  GetPage(
-    name: '/privacyPolicyScreen',
-    page: () => const LoginScreen(),
-  ),
 
 
 ];

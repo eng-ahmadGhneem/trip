@@ -40,26 +40,14 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const ProfileMenuItem(icon: Icons.leaderboard, title: "LEADERBOARD"),
-              const ProfileMenuItem(icon: Icons.local_offer, title: "EARN COINS"),
+              const ProfileMenuItem(icon: Icons.local_offer, title: "TRACE"),
               const ProfileMenuItem(icon: Icons.card_giftcard, title: "GIFT ITEMS"),
               InkWell(onTap:(){
                 Get.toNamed(AppRoutes.settingsScreen);
               },child: const ProfileMenuItem(icon: Icons.settings, title: "SETTINGS")),
               const ProfileMenuItem(icon: Icons.warning, title: "Term Of Use"),
               const Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                Get.offAll(const LoginScreen());},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey.shade800,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                ),
-                child: const Text("Log OUT", style: TextStyle(color: Colors.white)),
-              ),
+
               const SizedBox(height: 10),
             ],
           ),

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:trip/view/ar_map/screen/ar_take_photo_screen.dart';
 import 'package:trip/view/auth/screen/login_screen.dart';
-import '../../../widget/custom_button_navbar_widget.dart';
 
 class SplashController extends GetxController {
   @override
@@ -15,7 +15,7 @@ class SplashController extends GetxController {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      Get.offAll(() => const CustomBottomNavigationWidget());
+      Get.offAll(() => const ArTakePhotoScreen());
     } else {
       Get.offAll(() => const LoginScreen());
     }

@@ -118,28 +118,7 @@ class AuthController extends GetxController {
       }
     }
   }
-  Future<void> deleteAccount() async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
 
-      if (user != null) {
-        String userId = user.uid;
-
-        await FirebaseFirestore.instance.collection('users').doc(userId).delete();
-
-
-        await user.delete();
-
-        await FirebaseAuth.instance.signOut();
-
-        Get.offAll(() => const LoginScreen());
-
-        MyDialogs.success(msg: 'تم حذف الحساب بنجاح');
-      }
-    } catch (e) {
-      MyDialogs.error(msg: 'حدث خطأ أثناء حذف الحساب: $e');
-    }
-  }
   Future<void> sendPasswordResetEmail(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);

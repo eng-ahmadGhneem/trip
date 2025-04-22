@@ -8,7 +8,5 @@ class InitialBindings extends Bindings {
     Get.put(Crud());
     Get.put(AuthController());
     Get.put(AccountController());
-
-
   }
 }
