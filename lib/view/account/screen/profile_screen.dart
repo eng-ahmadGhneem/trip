@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip/core/constant/routes.dart';
-import '../../auth/screen/login_screen.dart';
 import '../widgets/profile_header.dart';
 import '../widgets/profile_menu_item.dart';
 
