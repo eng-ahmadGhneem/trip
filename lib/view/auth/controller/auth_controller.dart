@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:trip/data/helpers/my_dialogs.dart';
 import '../../../widget/custom_button_navbar_widget.dart';
-import '../screen/login_screen.dart';
 import '../screen/success_registration_screen.dart';
 import '../screen/verification_code.dart';
 
@@ -18,14 +17,15 @@ class AuthController extends GetxController {
   final FirebaseStorage storage = FirebaseStorage.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController birthdateController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> formKeyLog = GlobalKey<FormState>();
   var gender = 'Male'.obs;
   File? profileImage;
-  bool isLoading=false;
+  bool isLoading = false;
 
   @override
   void onClose() {
@@ -39,6 +39,7 @@ class AuthController extends GetxController {
 
     super.onClose();
   }
+
   Future<void> pickProfileImage() async {
     final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (picked != null) {
@@ -46,12 +47,14 @@ class AuthController extends GetxController {
       update();
     }
   }
-  Future<void> registerWithEmail(String email, String password, String username) async {
+
+  Future<void> registerWithEmail(
+      String email, String password, String username) async {
     try {
-      isLoading=true;
+      isLoading = true;
       update();
-      final UserCredential userCredential =
-      await auth.createUserWithEmailAndPassword(email: email, password: password);
+      final UserCredential userCredential = await auth
+          .createUserWithEmailAndPassword(email: email, password: password);
       String userId = userCredential.user!.uid;
 
       String? imageUrl;
@@ -76,24 +79,25 @@ class AuthController extends GetxController {
       // Send email verification link
       await userCredential.user!.sendEmailVerification();
 
-      MyDialogs.success(msg: 'Verification email sent. Please check your inbox.');
+      MyDialogs.success(
+          msg: 'Verification email sent. Please check your inbox.');
 
-      Get.to(() =>  const EmailVerificationScreen());
-      isLoading=false;
+      Get.to(() => const EmailVerificationScreen());
+      isLoading = false;
       update();
-
     } on FirebaseAuthException catch (e) {
-      isLoading=false;
+      isLoading = false;
       update();
       MyDialogs.error(msg: 'Registration failed: ${e.message}');
     }
   }
+
   Future<void> loginWithEmail(String email, String password) async {
     try {
-      isLoading=true;
+      isLoading = true;
       update();
-      final UserCredential userCredential =
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      final UserCredential userCredential = await auth
+          .signInWithEmailAndPassword(email: email, password: password);
 
       String userId = userCredential.user!.uid;
 
@@ -104,10 +108,10 @@ class AuthController extends GetxController {
 
       MyDialogs.success(msg: 'Logged in successfully!');
       Get.offAll(() => const CustomBottomNavigationWidget());
-      isLoading=false;
+      isLoading = false;
       update();
     } on FirebaseAuthException catch (e) {
-      isLoading=false;
+      isLoading = false;
       update();
       if (e.code == 'user-not-found') {
         MyDialogs.error(msg: 'No user found for that email.');
@@ -137,40 +141,47 @@ class AuthController extends GetxController {
       );
     }
   }
+
   Future<void> checkVerification() async {
-    isLoading=true;
+    isLoading = true;
     update();
     User? user = FirebaseAuth.instance.currentUser;
     await user?.reload();
 
     if (user != null) {
       if (user.emailVerified) {
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .update({
           'isEmailVerified': true,
         });
         Get.offAll(() => const SuccessRegistrationScreen());
-        isLoading=false;
+        isLoading = false;
         update();
       } else {
         Get.snackbar('Email Not Verified', 'Please verify your email first.',
             backgroundColor: Colors.red, colorText: Colors.white);
-        isLoading=false;
+        isLoading = false;
         update();
       }
     }
   }
+
   Future<void> signInWithGoogle() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential = await auth.signInWithCredential(credential);
+      final UserCredential userCredential =
+          await auth.signInWithCredential(credential);
       User? user = userCredential.user;
 
       if (user != null) {
