@@ -5,6 +5,7 @@ import '../../../core/constant/color.dart';
 import '../../../widget/custom_button_navbar_widget.dart';
 import '../../../widget/custom_elevated_button.dart';
 import '../../../widget/custom_text.dart';
+import '../../ar_map/screen/ar_take_photo_screen.dart';
 
 class SuccessRegistrationScreen extends StatelessWidget {
   const SuccessRegistrationScreen({super.key});
@@ -39,7 +40,7 @@ class SuccessRegistrationScreen extends StatelessWidget {
                 text: 'Done',
                 buttonColor: AppColor.appColor,
                 onPressed: () {
-                  Get.offAll(() =>  CustomBottomNavigationWidget());
+                  Get.offAll(() =>  ArTakePhotoScreen());
                   }),
             )
 
