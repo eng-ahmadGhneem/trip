@@ -11,41 +11,41 @@ class BalanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: Color(0xFFE5E5E5),
+      backgroundColor: const Color(0xFFE5E5E5),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(
                 children: [
                   InkWell(
                       onTap:(){
                       Get.back();
                       },
-                      child: Icon(Icons.arrow_back)),
-                  Spacer(),
-                  Text("الرصيد", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      child: const Icon(Icons.arrow_back)),
+                  const Spacer(),
+                  const Text("الرصيد", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
-            SizedBox(height: 12),
-            BalanceCard(),
-            SizedBox(height: 8),
-            Center(
+            const SizedBox(height: 12),
+            const BalanceCard(),
+            const SizedBox(height: 8),
+            const Center(
               child: Text(
                 "ارسل هدية لإعادة تنشيط مكافآتك",
                 style: TextStyle(fontSize: 12, color: Colors.black54),
               ),
             ),
-            SizedBox(height: 20),
-            Padding(
+            const SizedBox(height: 20),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text("الخدمات", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
-            SizedBox(height: 10),
-            Padding(
+            const SizedBox(height: 10),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
@@ -55,9 +55,9 @@ class BalanceScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(),
-            Center(child: Text("سحب", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))),
-            SizedBox(height: 16),
+            const Spacer(),
+            const Center(child: Text("سحب", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))),
+            const SizedBox(height: 16),
           ],
         ),
       ),

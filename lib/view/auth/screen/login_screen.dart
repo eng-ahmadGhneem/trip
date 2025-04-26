@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 50),
                       Center(
                         child: CustomText(
-                          text: 'Welcome to The World\nGifts Shop Your Specials',
+                          text: 'Welcome to The Special World',
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
                           color: AppColor.white,
@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
 
                       // Email field
                       CustomTextForm(
-                        mycontroller: controller.emailController,
+                        myController: controller.emailController,
                         iconPrefixData: Icons.email,
                         hintText: "Email Address",
                         keyboardType: TextInputType.emailAddress,
@@ -73,11 +73,11 @@ class LoginScreen extends StatelessWidget {
                         },
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 8),
 
                       // Password field
                       CustomTextForm(
-                        mycontroller: controller.passwordController,
+                        myController: controller.passwordController,
                         iconPrefixData: Icons.lock,
                         hintText: "Password",
                         valid: (value) {
@@ -88,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                         },
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 30),
 
                       // Login button
 
@@ -119,14 +119,10 @@ class LoginScreen extends StatelessWidget {
                              width: 60,
                              height: 60,
                              decoration: const BoxDecoration(
-                               color: Colors.blue,
+                               // color: Colors.blue,
                                shape: BoxShape.circle,
                              ),
-                             child: const Icon(
-                               Icons.g_mobiledata,
-                               color: Colors.white,
-                               size: 40,
-                             ),
+                             child: const Image(image: AssetImage(Assets.googleIcon)),
                            ),
                          ),
                          const SizedBox(width: 20),
@@ -138,7 +134,7 @@ class LoginScreen extends StatelessWidget {
                                  AppleIDAuthorizationScopes.fullName,
                                ],
                              );
-                             print(credential);
+                             throw (credential);
                            },
                            child: Icon(
                              Icons.apple,  color: AppColor.white,

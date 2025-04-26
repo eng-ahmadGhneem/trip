@@ -32,7 +32,7 @@ class HomeController extends GetxController {
       }).toList();
       arIconsData.value = data;
     } catch (e) {
-      print("Error loading AR icons data: $e");
+      throw("Error loading AR icons data: $e");
     }
   }
 
@@ -91,7 +91,7 @@ class HomeController extends GetxController {
       _markers = markers.toSet();
       update();
     } catch (e) {
-      print("Error loading data: $e");
+      throw("Error loading data: $e");
     }
   }
 

@@ -58,14 +58,14 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   CustomTextForm(
-                    mycontroller: controller.usernameController,
+                    myController: controller.usernameController,
                     hintText: "Enter your name",
                     iconPrefixData: Icons.person,
                     valid: (val) => val == null || val.isEmpty ? 'Enter your name' : null,
                   ),
                   const SizedBox(height: 15),
                   CustomTextForm(
-                    mycontroller: controller.emailController,
+                    myController: controller.emailController,
                     hintText: "Enter your email",
                     iconPrefixData: Icons.email,
                     keyboardType: TextInputType.emailAddress,
@@ -74,7 +74,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   CustomTextForm(
-                    mycontroller: controller.birthdateController,
+                    myController: controller.birthdateController,
                     hintText: "Date of Birth",
                     iconPrefixData: Icons.calendar_today,
                     readOnly: true,
@@ -95,9 +95,9 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   CustomTextForm(
-                    mycontroller: controller.passwordController,
+                    myController: controller.passwordController,
                     hintText: "Password",
-                    obscuretext: true,
+                    obscureText: true,
                     iconPrefixData: Icons.lock,
                     valid: (val) => val != null && val.length >= 6
                         ? null
@@ -105,9 +105,9 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   CustomTextForm(
-                    mycontroller: controller.confirmPasswordController,
+                    myController: controller.confirmPasswordController,
                     hintText: "Confirm Password",
-                    obscuretext: true,
+                    obscureText: true,
                     iconPrefixData: Icons.lock,
                     valid: (val) =>
                     val == controller.passwordController.text

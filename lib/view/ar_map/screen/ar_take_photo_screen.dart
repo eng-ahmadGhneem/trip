@@ -84,7 +84,7 @@ class ArTakePhotoScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () => controller.takePicture(),
-                    child:  Icon(
+                    child:  const Icon(
                       BoxIcons.bx_camera,
                       size: 50,
                       color: Colors.blueAccent,
@@ -93,7 +93,7 @@ class ArTakePhotoScreen extends StatelessWidget {
 
                   GestureDetector(
                     onTap: () => controller.takePicture(),
-                    child:  Icon(
+                    child:  const Icon(
                       BoxIcons.bx_gift,
                       size: 50,
                       color: Colors.blueAccent,

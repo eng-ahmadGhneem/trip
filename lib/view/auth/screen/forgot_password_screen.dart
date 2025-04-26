@@ -46,7 +46,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 40),
-              Image.asset(Assets.icon_lock),
+              Image.asset(Assets.iconLock),
               const SizedBox(height: 20),
               CustomText(
                 text: 'Email',
@@ -60,7 +60,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               CustomTextForm(
-                mycontroller: _emailController,
+                myController: _emailController,
                 hintText: 'البريد الإلكتروني',
                 iconPrefixData: Icons.email,
                 valid: (value) {

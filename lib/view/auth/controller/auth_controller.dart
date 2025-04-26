@@ -199,7 +199,7 @@ class AuthController extends GetxController {
 
       Get.offAll(() => const CustomBottomNavigationWidget());
     } catch (e) {
-      print('Error signing in with Google: $e');
+      throw('Error signing in with Google: $e');
     }
   }
 

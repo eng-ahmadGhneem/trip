@@ -9,11 +9,11 @@ class CustomTextForm extends StatelessWidget {
   final IconData? iconSuffixData;
   final Color? iconPrefixColor;
   final Color? iconSuffixColor;
-  final TextEditingController? mycontroller;
+  final TextEditingController? myController;
   final String? Function(String?)? valid;
   final void Function(String)? onChanged;
   final bool readOnly;
-  final bool obscuretext;
+  final bool obscureText;
   final String? labelText;
   final void Function()? onTapPrefixIcon;
   final void Function()? onTapSuffixIcon;
@@ -23,17 +23,17 @@ class CustomTextForm extends StatelessWidget {
   final int? maxLines;
   final Color fillColor;
   final TextInputType? keyboardType;
-  final VoidCallback? onTap; // 👈 هنا الإضافة الجديدة
+  final VoidCallback? onTap;
 
   const CustomTextForm({
     super.key,
     this.hintText,
     this.iconPrefixData,
     this.iconSuffixData,
-    this.mycontroller,
+    this.myController,
     this.valid,
     this.readOnly = false,
-    this.obscuretext = false,
+    this.obscureText = false,
     this.labelText,
     this.onTapPrefixIcon,
     this.onTapSuffixIcon,
@@ -46,7 +46,7 @@ class CustomTextForm extends StatelessWidget {
     this.hintColorText,
     this.maxLines = 1,
     this.fillColor = AppColor.fillTextFormGray,
-    this.onTap, // 👈 لا تنسَ تمريره هنا أيضاً
+    this.onTap,
   });
 
   @override
@@ -58,16 +58,16 @@ class CustomTextForm extends StatelessWidget {
         autofocus: autoFocus,
         cursorColor: AppColor.appColor,
         onChanged: onChanged,
-        onTap: onTap, // 👈 تمرير onTap هنا
+        onTap: onTap,
         style: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w400,
           fontSize: 16,
         ),
-        obscureText: obscuretext,
+        obscureText: obscureText,
         validator: valid,
         keyboardType: keyboardType,
-        controller: mycontroller,
+        controller: myController,
         readOnly: readOnly,
         onSaved: onSave,
         decoration: InputDecoration(
@@ -87,16 +87,16 @@ class CustomTextForm extends StatelessWidget {
           helperStyle: const TextStyle(
             color: Colors.grey,
             fontFamily: Assets.fontMontserrat,
-            fontSize: 15,
+            fontSize: 17,
           ),
           hintStyle: const TextStyle(
             color: Colors.grey,
             fontFamily: Assets.fontMontserrat,
-            fontSize: 13,
+            fontSize: 15,
           ),
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           contentPadding:
-          const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
           suffixIcon: InkWell(
             onTap: onTapSuffixIcon,
             child: Icon(
@@ -109,6 +109,7 @@ class CustomTextForm extends StatelessWidget {
             child: Icon(
               iconPrefixData,
               color: AppColor.appColor,
+              size: 25,
             ),
           ),
           border: OutlineInputBorder(

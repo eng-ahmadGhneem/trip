@@ -74,7 +74,7 @@ class NotificationController extends GetxController {
     try {
       await _firestore.collection('notifications').doc(notificationId).delete();
     } catch (e) {
-      print("Error deleting notification: $e");
+      throw("Error deleting notification: $e");
     }
   }
 

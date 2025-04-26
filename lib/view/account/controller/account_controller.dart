@@ -39,10 +39,10 @@ class AccountController extends GetxController {
           idNumber.value = data['id'] ?? '';
         }
       } else {
-        print("User is not logged in.");
+        throw ("User is not logged in.");
       }
     } catch (e) {
-      print("Error fetching user data: $e");
+      throw("Error fetching user data: $e");
     }
   }
   Future<void> deleteAccount() async {

@@ -105,16 +105,16 @@ class GiftCommentsScreen extends StatelessWidget {
                               contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                               suffixIcon: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 6),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: AppColor.appColor,
-                                  borderRadius: const BorderRadius.only(
+                                  borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(10),
                                     bottomRight: Radius.circular(10),
                                   ),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
+                                  children: [
                                     Icon(Icons.mic, color: Colors.white, size: 20),
                                     SizedBox(width: 6),
                                     Icon(Icons.image, color: Colors.white, size: 20),

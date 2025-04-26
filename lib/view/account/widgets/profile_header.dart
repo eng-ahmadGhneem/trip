@@ -14,7 +14,7 @@ class AppHeader extends StatelessWidget {
     final controller = Get.find<AccountController>();
     return Column(
       children: [
-        SizedBox(height: 30,),
+        const SizedBox(height: 30,),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class AppHeader extends StatelessWidget {
             optionsSettings?Icon(Icons.more_vert, color: AppColor.white):Container(),
           ],
         ),
-        SizedBox(height: 30,),
+        const SizedBox(height: 30,),
         optionsSettings?Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(

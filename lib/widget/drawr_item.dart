@@ -4,17 +4,16 @@ class DrawerItem extends StatelessWidget {
   const DrawerItem(
       {required this.name,
         required this.icon,
-        required this.onPressd,
-        Key? key})
-      : super(key: key);
+        required this.onTap,
+        super.key});
   final String name;
   final IconData icon;
-  final Function() onPressd;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressd,
+      onTap: onTap,
       child: SizedBox(
         height: 40,
         child: Row(

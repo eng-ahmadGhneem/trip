@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 
 class CircleButtonWidget extends StatelessWidget {
-   CircleButtonWidget({super.key,required this.height,required this.width,required this.icon});
-  IconData icon;
-  double height;
-  double width;
+   const CircleButtonWidget({super.key,required this.height,required this.width,required this.icon});
+ final IconData icon;
+ final double height;
+ final double width;
 
   @override
   Widget build(BuildContext context) {

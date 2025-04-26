@@ -45,7 +45,7 @@ class _GiftsMapScreenState extends State<GiftsMapScreen> with SingleTickerProvid
               onTap: () {
            Get.toNamed(AppRoutes.giftsShoppingListScreen);
               },
-              child: CircleButtonWidget(icon:Icons.add,height: 60,width: 60),
+              child: const CircleButtonWidget(icon:Icons.add,height: 60,width: 60),
             ),
           ),
         ],
@@ -62,11 +62,11 @@ class _GiftsMapScreenState extends State<GiftsMapScreen> with SingleTickerProvid
     ];
 
     final List<Color> colors = [
-      Color(0xffff66c4),
-      Color(0xffff66c4),
-      Color(0xffff66c4),
-      Color(0xffff66c4),
-      Color(0xffff66c4),
+      const Color(0xffff66c4),
+      const Color(0xffff66c4),
+      const Color(0xffff66c4),
+      const Color(0xffff66c4),
+      const Color(0xffff66c4),
     ];
 
     return List.generate(
