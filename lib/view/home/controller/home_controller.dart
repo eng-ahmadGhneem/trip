@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class HomeController extends GetxController {
   LatLng? _currentLocation;
   Set<Marker> _markers = {};
+  Set<Polyline> _polylines = {}; // ✅ لإضافة مسار
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   RxList<Map<String, dynamic>> arIconsData = <Map<String, dynamic>>[].obs;
@@ -18,8 +20,6 @@ class HomeController extends GetxController {
     loadARIconsData();
     super.onInit();
   }
-
-
 
   Future<void> loadARIconsData() async {
     try {
@@ -64,9 +64,12 @@ class HomeController extends GetxController {
           markerId: MarkerId(provinceDoc.id),
           position: LatLng(provinceLat, provinceLng),
           infoWindow: InfoWindow(title: provinceName),
+          onTap: () {
+            drawRoute(LatLng(provinceLat, provinceLng)); // ✅ عند الضغط على الماركر نرسم المسار
+          },
         ));
 
-        // Load fingerprints for each province
+        // Load fingerprints
         QuerySnapshot fingerprintsSnapshot = await _firestore
             .collection('map_home')
             .doc(provinceDoc.id)
@@ -84,6 +87,9 @@ class HomeController extends GetxController {
             position: LatLng(lat, lng),
             infoWindow: InfoWindow(title: 'Fingerprint ${fingerprintDoc.id}'),
             icon: BitmapDescriptor.fromBytes(customIcon),
+            onTap: () {
+              drawRoute(LatLng(lat, lng)); // ✅ عند الضغط على البصمة نرسم المسار
+            },
           ));
         }
       }
@@ -97,17 +103,34 @@ class HomeController extends GetxController {
 
   Future<Uint8List> _getCustomMarkerIcon(String hexColor) async {
     final paint = Paint()..color = Color(int.parse('0xFF$hexColor'));
-    final recorder = PictureRecorder();
+    final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder, Rect.fromPoints(const Offset(0, 0), const Offset(100, 100)));
-
-    // Draw a circle with the selected color
     canvas.drawCircle(const Offset(50, 50), 30, paint);
     final picture = recorder.endRecording();
     final img = await picture.toImage(100, 100);
-    final byteData = await img.toByteData(format: ImageByteFormat.png);
+    final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
     return byteData!.buffer.asUint8List();
+  }
+
+  // ✅ دالة رسم المسار
+  void drawRoute(LatLng destination) {
+    if (_currentLocation == null) return;
+
+    final Polyline polyline = Polyline(
+      polylineId: PolylineId('route'),
+      color: const Color(0xFF42A5F5), // لون المسار أزرق
+      width: 5,
+      points: [
+        _currentLocation!,
+        destination,
+      ],
+    );
+
+    _polylines = {polyline};
+    update();
   }
 
   Set<Marker> get markers => _markers;
   LatLng? get currentLocation => _currentLocation;
+  Set<Polyline> get polylines => _polylines; // ✅ getter للمسارات
 }
