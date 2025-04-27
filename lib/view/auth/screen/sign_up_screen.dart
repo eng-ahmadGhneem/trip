@@ -15,6 +15,21 @@ class RegisterScreen extends StatelessWidget {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.dark,
+        title: CustomText(
+          text: 'Sign up',
+          fontSize: 25,
+          color: AppColor.lightGrey,
+        ),
+        centerTitle: true,
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child:const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ) ,
+      ),
       backgroundColor: AppColor.dark,
       body: GetBuilder<AuthController>(
         builder: (controller) {
@@ -24,35 +39,16 @@ class RegisterScreen extends StatelessWidget {
               key: formKey,
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.login);
-                        },
-                        child:const Icon(Icons.arrow_back_ios, color: Colors.white),
-                      ),
-                      const Spacer(),
-                      CustomText(
-                        text: 'Sign up',
-                        fontSize: 25,
-                        color: AppColor.lightGrey,
-                      ),
-                      const Spacer()
-                    ],
-                  ),
-                  const SizedBox(height: 40),
                   GestureDetector(
                     onTap: controller.pickProfileImage,
                     child: CircleAvatar(
+                      backgroundColor: AppColor.lightGrey,
                       radius: 50,
                       backgroundImage: controller.profileImage != null
                           ? FileImage(controller.profileImage!)
                           : null,
                       child: controller.profileImage == null
-                          ? const Icon(Icons.camera_alt, size: 40, color: Colors.white)
+                          ? const Icon(Icons.camera_alt, size: 40, color: AppColor.appColor)
                           : null,
                     ),
                   ),
@@ -63,7 +59,7 @@ class RegisterScreen extends StatelessWidget {
                     iconPrefixData: Icons.person,
                     valid: (val) => val == null || val.isEmpty ? 'Enter your name' : null,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   CustomTextForm(
                     myController: controller.emailController,
                     hintText: "Enter your email",
@@ -72,7 +68,7 @@ class RegisterScreen extends StatelessWidget {
                     valid: (val) =>
                     !GetUtils.isEmail(val!) ? 'Enter a valid email' : null,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   CustomTextForm(
                     myController: controller.birthdateController,
                     hintText: "Date of Birth",
@@ -93,7 +89,7 @@ class RegisterScreen extends StatelessWidget {
                     valid: (val) =>
                     val == null || val.isEmpty ? 'Enter birthdate' : null,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   CustomTextForm(
                     myController: controller.passwordController,
                     hintText: "Password",
@@ -103,7 +99,7 @@ class RegisterScreen extends StatelessWidget {
                         ? null
                         : 'Password must be at least 6 characters',
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   CustomTextForm(
                     myController: controller.confirmPasswordController,
                     hintText: "Confirm Password",
@@ -114,10 +110,11 @@ class RegisterScreen extends StatelessWidget {
                         ? null
                         : 'Passwords do not match',
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
-                      const Text("Gender: ", style: TextStyle(color: Colors.white)),
+                      const Text("Gender: ", style: TextStyle(color: Colors.white , fontSize: 16)),
+                      const SizedBox(width: 8,) ,
                       Expanded(
                         child: Obx(() => DropdownButton<String>(
                           value: controller.gender.value,
@@ -126,9 +123,9 @@ class RegisterScreen extends StatelessWidget {
                           style: const TextStyle(color: Colors.white),
                           items: const [
                             DropdownMenuItem(
-                                value: 'Male', child: Text("Male")),
+                                value: 'Male', child: Text("Male" , style: TextStyle(color: Colors.white , fontSize: 16),)),
                             DropdownMenuItem(
-                                value: 'Female', child: Text("Female")),
+                                value: 'Female', child: Text("Female" , style: TextStyle(color: Colors.white , fontSize: 16),)),
                           ],
                           onChanged: (value) {
                             if (value != null) {

@@ -28,14 +28,6 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Center(
-                        child: CustomText(
-                          text: 'Sign In',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: AppColor.white,
-                        ),
-                      ),
                       const SizedBox(height: 50),
                       Center(
                         child: CustomText(
@@ -116,8 +108,8 @@ class LoginScreen extends StatelessWidget {
                              await controller.signInWithGoogle();
                            },
                            child: Container(
-                             width: 60,
-                             height: 60,
+                             width: 40,
+                             height: 40,
                              decoration: const BoxDecoration(
                                // color: Colors.blue,
                                shape: BoxShape.circle,
@@ -125,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                              child: const Image(image: AssetImage(Assets.googleIcon)),
                            ),
                          ),
-                         const SizedBox(width: 20),
+                         const SizedBox(width: 30),
                          GestureDetector(
                            onTap: () async {
                              final credential = await SignInWithApple.getAppleIDCredential(
@@ -151,9 +143,10 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           CustomText(
                             text: 'Don\'t have an account? ',
-                            fontSize: 14,
+                            fontSize: 16,
                             color: AppColor.lightGrey,
                           ),
+                          const SizedBox(width: 10,) ,
                           GestureDetector(
                             onTap: () {
                               Get.toNamed(AppRoutes.registerScreen);
@@ -161,22 +154,23 @@ class LoginScreen extends StatelessWidget {
                             child: CustomText(
                               text: 'Signup here!',
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 16,
                               color: AppColor.lightGrey,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ],
                       ),
-
+                      const SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
                           Get.toNamed(AppRoutes.forgotPasswordScreen);
                         },
                         child: const Text(
-                          'Forgot password?',
+                          'Forgot your password?',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 16,
                             decoration: TextDecoration.underline,
                           ),
                         ),

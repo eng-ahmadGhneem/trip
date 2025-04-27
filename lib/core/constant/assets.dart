@@ -34,7 +34,7 @@ class Assets {
   static const String menu = "$rootIcons/menu.jpg";
   static const String tag = "$rootIcons/tag.jpg";
   static const String flash = "$rootIcons/flash.jpg";
-  static const String googleIcon = "$rootIcons/googleicon.jpg";
+  static const String googleIcon = "$rootIcons/googleicon.png";
   static const String noAds = "$rootImages/no_ads.png";
   static const String speed = "$rootImages/courses.png";
   static const String server = "$rootImages/server.png";

@@ -13,33 +13,29 @@ class EmailVerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColor.dark,
+          title: CustomText(
+            text: 'Verification Code',
+            fontSize: 25,
+            color: AppColor.lightGrey,
+          ),
+          centerTitle: true,
+          leading: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child:const Icon(Icons.arrow_back_ios, color: Colors.white),
+          ) ,
+        ),
         backgroundColor: AppColor.dark,
         body: GetBuilder<AuthController>(builder: (controller) {
           return Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed(AppRoutes.login);
-                      },
-                      child: const Icon(Icons.arrow_back_ios, color: Colors.white),
-                    ),
-                    const Spacer(),
-                    CustomText(
-                      text: 'Verification Code',
-                      fontSize: 25,
-                      color: AppColor.lightGrey,
-                    ),
-                    const Spacer()
-                  ],
-                ),
-                const SizedBox(height: 30),
                 Center(child: Image.asset(Assets.verEmail)),
                 const SizedBox(height: 20),
                 Padding(

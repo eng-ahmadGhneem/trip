@@ -17,7 +17,6 @@ class SuccessRegistrationScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-
           Image.asset(Assets.registerSuccessful),
             const SizedBox(height: 20),
             CustomText(

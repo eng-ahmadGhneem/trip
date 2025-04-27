@@ -19,53 +19,44 @@ class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.dark,
+        title: CustomText(
+          text: 'Reset Password',
+          fontSize: 25,
+          color: AppColor.lightGrey,
+        ),
+        centerTitle: true,
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child:const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ) ,
+      ),
       backgroundColor: AppColor.dark,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.login);
-                    },
-                    child:const Icon(Icons.arrow_back_ios, color: Colors.white),
-                  ),
-                  const Spacer(),
-                  CustomText(
-                    text: 'Send Email',
-                    fontSize: 25,
-                    color: AppColor.lightGrey,
-                  ),
-                  const Spacer()
-                ],
-              ),
-              const SizedBox(height: 40),
               Image.asset(Assets.iconLock),
               const SizedBox(height: 20),
               CustomText(
-                text: 'Email',
-                fontSize: 25,
+                text: 'Enter your email',
+                fontSize: 18,
                 color: AppColor.lightGrey,
-              ),
-              const CustomText(
-                text: 'Login to your account',
-                fontSize: 16,
-                color: AppColor.appColor,
               ),
               const SizedBox(height: 20),
               CustomTextForm(
                 myController: _emailController,
-                hintText: 'البريد الإلكتروني',
+                hintText: 'Email',
                 iconPrefixData: Icons.email,
                 valid: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'الرجاء إدخال البريد الإلكتروني';
+                    return 'Pleas enter your email';
                   }
                   return null;
                 },
