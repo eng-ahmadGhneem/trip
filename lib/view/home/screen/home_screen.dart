@@ -25,7 +25,6 @@ class ARMapScreen extends StatelessWidget {
 
               return GoogleMap(
                 zoomControlsEnabled: false,
-
                 onMapCreated: (controller) {
                   mapController = controller;
                   mapController.setMapStyle(ConstData.darkMapStyle);
@@ -35,12 +34,12 @@ class ARMapScreen extends StatelessWidget {
                   zoom: 15.0,
                 ),
                 markers: controller.markers,
+                polylines: controller.polylines,
                 myLocationEnabled: true,
                 myLocationButtonEnabled: true,
               );
             },
           ),
-          // ..._buildARIcons(),
           Positioned(
             right: 16,
             bottom: 10,

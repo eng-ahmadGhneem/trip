@@ -1,14 +1,20 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class ArMapController extends GetxController {
   late CameraController cameraController;
   var isCameraInitialized = false.obs;
   var capturedImage = Rx<File?>(null);
+  RxInt selectedPage = 0.obs;
+  List<Map<String, dynamic>> buttons = [
+    {"icon": Icons.fingerprint, "label": "Fingerprint"},
+    {"icon": BoxIcons.bx_camera, "label": "Camera"},
+    {"icon": BoxIcons.bx_gift, "label": "Gift"},
 
+  ];
   @override
   void onInit() {
     super.onInit();
@@ -31,8 +37,8 @@ class ArMapController extends GetxController {
   Future<void> takePicture() async {
     if (!cameraController.value.isInitialized) return;
 
-    final directory = await getTemporaryDirectory();
-    final imagePath = join(directory.path, '${DateTime.now()}.png');
+    // final directory = await getTemporaryDirectory();
+    // final imagePath = join(directory.path, '${DateTime.now()}.png');
 
     final XFile picture = await cameraController.takePicture();
     capturedImage.value = File(picture.path);

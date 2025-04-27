@@ -1,60 +1,81 @@
-// import 'package:ar_flutter_plugin/datatypes/node_types.dart';
-// import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
-// import 'package:ar_flutter_plugin/managers/ar_location_manager.dart';
-// import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
-// import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
-// import 'package:ar_flutter_plugin/models/ar_node.dart';
 // import 'package:flutter/material.dart';
-// import 'package:vector_math/vector_math_64.dart';
-// import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
+// import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+// import 'package:geolocator/geolocator.dart';
+// import 'package:vector_math/vector_math_64.dart' show Vector3;
 //
-// class ARTakePhotoScreen extends StatefulWidget {
-//   const ARTakePhotoScreen({super.key});
+//
+// class ArNavigationScreen extends StatefulWidget {
+//   final double destinationLatitude;
+//   final double destinationLongitude;
+//
+//   const ArNavigationScreen({
+//     Key? key,
+//     required this.destinationLatitude,
+//     required this.destinationLongitude,
+//   }) : super(key: key);
 //
 //   @override
-//   State<ARTakePhotoScreen> createState() => _ARTakePhotoScreenState();
+//   _ArNavigationScreenState createState() => _ArNavigationScreenState();
 // }
 //
-// class _ARTakePhotoScreenState extends State<ARTakePhotoScreen> {
-//   late ARSessionManager arSessionManager;
-//   late ARObjectManager arObjectManager;
+// class _ArNavigationScreenState extends State<ArNavigationScreen> {
+//   late ArCoreController arCoreController;
+//   late Position currentPosition;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _getCurrentLocation();
+//   }
+//
+//   Future<void> _getCurrentLocation() async {
+//     currentPosition = await Geolocator.getCurrentPosition(
+//         desiredAccuracy: LocationAccuracy.high);
+//     setState(() {});
+//   }
+//
+//   void _onArCoreViewCreated(ArCoreController controller) {
+//     arCoreController = controller;
+//     _addDestinationMarker();
+//   }
+//
+//   void _addDestinationMarker() {
+//     final distance = Geolocator.distanceBetween(
+//       currentPosition.latitude,
+//       currentPosition.longitude,
+//       widget.destinationLatitude,
+//       widget.destinationLongitude,
+//     );
+//
+//     final double z = -distance / 10;
+//
+//     final node = ArCoreNode(
+//       shape: ArCoreSphere(
+//         materials: [
+//           ArCoreMaterial(color: Colors.blue),
+//         ],
+//         radius: 0.2,
+//       ),
+//       position: Vector3(0, 0, z),
+//     );
+//
+//     arCoreController.addArCoreNode(node);
+//   }
+//
+//   @override
+//   void dispose() {
+//     arCoreController.dispose();
+//     super.dispose();
+//   }
 //
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       body: ARView(
-//         onARViewCreated: onARViewCreated,
+//       body: currentPosition == null
+//           ? const Center(child: CircularProgressIndicator())
+//           : ArCoreView(
+//         onArCoreViewCreated: _onArCoreViewCreated,
 //       ),
 //     );
-//   }
-//
-//   void onARViewCreated(
-//       ARSessionManager sessionManager,
-//       ARObjectManager objectManager,
-//       ARAnchorManager anchorManager,
-//       ARLocationManager locationManager,
-//       ) {
-//     arSessionManager = sessionManager;
-//     arObjectManager = objectManager;
-//
-//     arSessionManager.onInitialize(
-//       showFeaturePoints: false,
-//       showPlanes: true,
-//       handleTaps: false,
-//     );
-//
-//     arObjectManager.onInitialize();
-//
-//     _addARObject();
-//   }
-//
-//   Future<void> _addARObject() async {
-//     await arObjectManager.addNode(ARNode(
-//       type: NodeType.webGLB,
-//       uri: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
-//       scale: Vector3(0.2, 0.2, 0.2),
-//       position: Vector3(0.0, 0.0, -1.0),
-//       rotation: Vector4(1.0, 0.0, 0.0, 0.0),
-//     ));
 //   }
 // }
