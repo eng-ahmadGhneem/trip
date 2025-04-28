@@ -35,9 +35,8 @@ class _GiftsMapScreenState extends State<GiftsMapScreen> with SingleTickerProvid
             mapType: MapType.normal,
             zoomControlsEnabled: false,
             myLocationEnabled: true,
-            myLocationButtonEnabled: true,
+            myLocationButtonEnabled: false,
           ),
-          ..._buildARIcons(),
           Positioned(
             right: 16,
             bottom: 10,
@@ -52,57 +51,57 @@ class _GiftsMapScreenState extends State<GiftsMapScreen> with SingleTickerProvid
       ),
     );
   }
-  List<Widget> _buildARIcons() {
-    final List<Offset> positions = [
-      const Offset(80, 150),
-      const Offset(200, 250),
-      const Offset(120, 300),
-      const Offset(280, 180),
-      const Offset(160, 450),
-    ];
-
-    final List<Color> colors = [
-      const Color(0xffff66c4),
-      const Color(0xffff66c4),
-      const Color(0xffff66c4),
-      const Color(0xffff66c4),
-      const Color(0xffff66c4),
-    ];
-
-    return List.generate(
-      positions.length,
-          (index) => Positioned(
-        left: positions[index].dx,
-        top: positions[index].dy,
-        child: InkWell(
-          onTap: (){
-            Get.toNamed(AppRoutes.giftsShoppingListScreen);
-          },
-          child: Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: colors[index].withOpacity(0.2),
-
-            ),
-            child: Center(
-              child: Icon(
-                Icons.card_giftcard,
-                color: colors[index],
-                size: 30,
-                shadows: [
-                  Shadow(
-                    color: colors[index].withOpacity(0.7),
-                    blurRadius: 10,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // List<Widget> _buildARIcons() {
+  //   final List<Offset> positions = [
+  //     const Offset(80, 150),
+  //     const Offset(200, 250),
+  //     const Offset(120, 300),
+  //     const Offset(280, 180),
+  //     const Offset(160, 450),
+  //   ];
+  //
+  //   final List<Color> colors = [
+  //     const Color(0xffff66c4),
+  //     const Color(0xffff66c4),
+  //     const Color(0xffff66c4),
+  //     const Color(0xffff66c4),
+  //     const Color(0xffff66c4),
+  //   ];
+  //
+  //   return List.generate(
+  //     positions.length,
+  //         (index) => Positioned(
+  //       left: positions[index].dx,
+  //       top: positions[index].dy,
+  //       child: InkWell(
+  //         onTap: (){
+  //           Get.toNamed(AppRoutes.giftsShoppingListScreen);
+  //         },
+  //         child: Container(
+  //           width: 60,
+  //           height: 60,
+  //           decoration: BoxDecoration(
+  //             shape: BoxShape.circle,
+  //             color: colors[index].withOpacity(0.2),
+  //
+  //           ),
+  //           child: Center(
+  //             child: Icon(
+  //               Icons.card_giftcard,
+  //               color: colors[index],
+  //               size: 30,
+  //               shadows: [
+  //                 Shadow(
+  //                   color: colors[index].withOpacity(0.7),
+  //                   blurRadius: 10,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
 }

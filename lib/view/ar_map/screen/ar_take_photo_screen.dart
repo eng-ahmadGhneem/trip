@@ -1,10 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip/core/constant/routes.dart';
 import '../../../core/constant/color.dart';
 import '../../../widget/custom_button_navbar_widget.dart';
-import '../../../widget/custom_text.dart';
 import '../controller/ar_map_controller.dart';
 
 // class ArTakePhotoScreen extends StatelessWidget {
@@ -160,63 +158,46 @@ class ArTakePhotoScreen extends StatelessWidget {
       backgroundColor: AppColor.dark,
       appBar: AppBar(
         backgroundColor: AppColor.dark,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.toNamed('/home');
-                },
-                child: Icon(Icons.arrow_back_ios, color: Colors.white),
-              ),
-              const Spacer(),
-              Text(
-                'Add Trace',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.grey),
-              ),
-              const Spacer(),
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_circle_down_sharp,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Get.to(() => CustomBottomNavigationWidget(), transition: Transition.upToDown, duration: Duration(milliseconds: 500));
-                },
-              ),
-            ],
+        title: const Text(
+          'Add Trace',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.grey),
+        ),
+        centerTitle: true ,
+        leading:  IconButton(
+          icon:  const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.grey,
+            size: 25,
           ),
+          onPressed: () {
+            Get.to(() => const CustomBottomNavigationWidget(), transition: Transition.upToDown, duration: const Duration(milliseconds: 500));
+          },
         ),
       ),
       body: Obx(() {
         if (!controller.isCameraInitialized.value) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         return Stack(
           children: [
             Positioned.fill(
-              child: CameraPreview(controller.cameraController),  // عرض الكاميرا
+              child: CameraPreview(controller.cameraController),
             ),
             Positioned(
-              top: 150,
+              top: 15,
               left: 0,
               right: 0,
               child: Obx(() {
                 if (controller.selectedPage.value == 0) {
-                  return Center(
+                  return const Center(
                     child: Text("Fingerprint Mode", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
                   );
                 } else if (controller.selectedPage.value == 1) {
-                  return Center(
-                    child: Text("Camera Mode", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
-                  );
-                } else if (controller.selectedPage.value == 2) {
-                  return Center(
+                  return const Center(
                     child: Text("Gift Mode", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
                   );
                 } else {
-                  return SizedBox();
+                  return const SizedBox();
                 }
               }),
             ),
@@ -236,7 +217,7 @@ class ArTakePhotoScreen extends StatelessWidget {
                   return GestureDetector(
                     onTap: () => controller.takePicture(),
                     child: Obx(() => Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: controller.selectedPage.value == index ? Colors.blueAccent : Colors.transparent,
@@ -248,8 +229,8 @@ class ArTakePhotoScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(button['icon'], size: 50, color: Colors.blueAccent),
-                          SizedBox(height: 8),
-                          Text(button['label'], style: TextStyle(color: Colors.white, fontSize: 14)),
+                          const SizedBox(height: 8),
+                          Text(button['label'], style: const TextStyle(color: Colors.white, fontSize: 14)),
                         ],
                       ),
                     )),

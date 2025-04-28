@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/constant/assets.dart';
 import '../../../core/constant/color.dart';
-import '../../../core/constant/routes.dart';
 import '../../../widget/custom_text.dart';
 import '../../../widget/custom_elevated_button.dart';
 import '../controller/auth_controller.dart';
@@ -21,12 +20,6 @@ class EmailVerificationScreen extends StatelessWidget {
             color: AppColor.lightGrey,
           ),
           centerTitle: true,
-          leading: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child:const Icon(Icons.arrow_back_ios, color: Colors.white),
-          ) ,
         ),
         backgroundColor: AppColor.dark,
         body: GetBuilder<AuthController>(builder: (controller) {

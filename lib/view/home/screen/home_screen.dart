@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:trip/core/constant/color.dart';
 import '../../../core/constant/const_data.dart';
 import '../../../core/constant/routes.dart';
 import '../controller/home_controller.dart';
@@ -14,6 +15,7 @@ class ARMapScreen extends StatelessWidget {
     late GoogleMapController mapController;
 
     return Scaffold(
+      backgroundColor: AppColor.dark,
       body: Stack(
         children: [
           GetBuilder<HomeController>(
@@ -36,7 +38,7 @@ class ARMapScreen extends StatelessWidget {
                 markers: controller.markers,
                 polylines: controller.polylines,
                 myLocationEnabled: true,
-                myLocationButtonEnabled: true,
+                myLocationButtonEnabled: false,
               );
             },
           ),
@@ -54,13 +56,6 @@ class ARMapScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(AppRoutes.arTakePhotoScreen);
-                  },
-                  child: const CircleButtonWidget(icon: Icons.camera_alt, height: 50, width: 50),
-                ),
-                const SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () {
                     Get.toNamed(AppRoutes.leaveTraceScreen);
                   },
                   child: const CircleButtonWidget(icon: Icons.add, height: 50, width: 50),
@@ -68,7 +63,7 @@ class ARMapScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    // Toggle actions display
+                    Get.toNamed(AppRoutes.arTakePhotoScreen);
                   },
                   child: const CircleButtonWidget(icon: Icons.fingerprint, height: 60, width: 60),
                 ),
@@ -156,7 +151,7 @@ class CircleButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: width / 2,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       child: Icon(icon, size: height / 2, color: Colors.blue),
     );
   }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:get/get.dart';
 import 'package:trip/binding/initial_bindings.dart';
+import 'package:trip/core/constant/color.dart';
 import 'package:trip/core/constant/routes.dart';
 import 'package:trip/data/helpers/pref.dart';
 import 'package:trip/routes.dart';
@@ -119,6 +120,14 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.splashScreen,
       getPages: routes,
       initialBinding: InitialBindings(),
+      home: Scaffold(
+        backgroundColor: AppColor.dark,
+        body: const Center(
+          child: CircularProgressIndicator(
+            color: AppColor.appColor,
+          ),
+        ),
+      ),
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),

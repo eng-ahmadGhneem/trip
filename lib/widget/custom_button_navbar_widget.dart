@@ -19,13 +19,11 @@ import 'package:trip/core/constant/const_data.dart';
     @override
     Widget build(BuildContext context) {
       return Scaffold(
+        backgroundColor: AppColor.dark,
         body: ConstData.screens[_currentIndex],
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
             boxShadow: [
               BoxShadow(color: Colors.black26, blurRadius: 10),
             ],
@@ -50,50 +48,50 @@ import 'package:trip/core/constant/const_data.dart';
                 BottomNavigationBarItem(
                   icon: Column(
                     children: [
-                      const Icon(Icons.fingerprint),
-                      const SizedBox(height: 4),
+                      const Icon(Icons.fingerprint , size: 33,),
+                      const SizedBox(height: 2),
                       _currentIndex == 0
                           ? Container(
-                              width: 20,
-                              height: 3,
+                              width: 30,
+                              height: 1,
                               color: AppColor.appColor,
                             )
-                          : const SizedBox(height: 3),
+                          : const SizedBox(height: 1),
                     ],
                   ),
-                  label: 'الرئيسية',
+                  label: '',
                 ),
                 BottomNavigationBarItem(
                   icon: Column(
                     children: [
-                      const Icon(Icons.card_giftcard),
-                      const SizedBox(height: 4),
+                      const Icon(Icons.card_giftcard , size: 33,),
+                      const SizedBox(height: 2),
                       _currentIndex == 1
                           ? Container(
-                              width: 20,
-                              height: 3,
+                              width: 30,
+                              height: 1,
                               color: AppColor.appColor,
                             )
-                          : const SizedBox(height: 3),
+                          : const SizedBox(height: 1),
                     ],
                   ),
-                  label: 'الهدايا',
+                  label: '',
                 ),
                 BottomNavigationBarItem(
                   icon: Column(
                     children: [
-                      const Icon(Icons.person),
-                      const SizedBox(height: 4),
+                      const Icon(Icons.person,size: 33,),
+                      const SizedBox(height: 2),
                       _currentIndex == 2
                           ? Container(
-                              width: 20,
-                              height: 3,
+                              width: 30,
+                              height: 2,
                               color: AppColor.appColor,
                             )
-                          : const SizedBox(height: 3),
+                          : const SizedBox(height: 1),
                     ],
                   ),
-                  label: 'الملف الشخصي',
+                  label: '',
                 ),
               ],
             ),

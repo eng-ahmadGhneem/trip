@@ -7,7 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:trip/data/helpers/my_dialogs.dart';
-import '../../../widget/custom_button_navbar_widget.dart';
+import '../../ar_map/screen/ar_take_photo_screen.dart';
 import '../screen/success_registration_screen.dart';
 import '../screen/verification_code.dart';
 
@@ -82,7 +82,7 @@ class AuthController extends GetxController {
       MyDialogs.success(
           msg: 'Verification email sent. Please check your inbox.');
 
-      Get.to(() => const EmailVerificationScreen());
+      Get.offAll(() => const EmailVerificationScreen());
       isLoading = false;
       update();
     } on FirebaseAuthException catch (e) {
@@ -107,7 +107,7 @@ class AuthController extends GetxController {
       }, SetOptions(merge: true));
 
       MyDialogs.success(msg: 'Logged in successfully!');
-      Get.offAll(() => const CustomBottomNavigationWidget());
+      Get.offAll(() => const ArTakePhotoScreen());
       isLoading = false;
       update();
     } on FirebaseAuthException catch (e) {
@@ -127,15 +127,15 @@ class AuthController extends GetxController {
     try {
       await _auth.sendPasswordResetEmail(email: email);
       Get.snackbar(
-        'تم الإرسال',
-        'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني',
+        'Email Sent Successfully',
+        'Please check your email messages',
         backgroundColor: Get.theme.primaryColor,
         colorText: Colors.white,
       );
     } catch (e) {
       Get.snackbar(
-        'خطأ',
-        'حدث خطأ أثناء الإرسال: $e',
+        'Something wrong',
+        '$e',
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
@@ -197,7 +197,7 @@ class AuthController extends GetxController {
         }
       }
 
-      Get.offAll(() => const CustomBottomNavigationWidget());
+      Get.offAll(() => const ArTakePhotoScreen());
     } catch (e) {
       throw('Error signing in with Google: $e');
     }

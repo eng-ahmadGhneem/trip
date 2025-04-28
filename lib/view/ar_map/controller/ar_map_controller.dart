@@ -11,7 +11,6 @@ class ArMapController extends GetxController {
   RxInt selectedPage = 0.obs;
   List<Map<String, dynamic>> buttons = [
     {"icon": Icons.fingerprint, "label": "Fingerprint"},
-    {"icon": BoxIcons.bx_camera, "label": "Camera"},
     {"icon": BoxIcons.bx_gift, "label": "Gift"},
 
   ];
