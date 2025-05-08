@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const ProfileMenuItem(icon: Icons.leaderboard, title: "LEADERBOARD"),
-              const ProfileMenuItem(icon: Icons.local_offer, title: "TRACE"),
+              // const ProfileMenuItem(icon: Icons.local_offer, title: "TRACE"),
               const ProfileMenuItem(icon: Icons.card_giftcard, title: "GIFT ITEMS"),
               InkWell(onTap:(){
                 Get.toNamed(AppRoutes.settingsScreen);
