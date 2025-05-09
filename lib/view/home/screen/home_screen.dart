@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../../core/constant/const_data.dart';
+import 'package:flutter_map/flutter_map.dart';
+
+import 'package:trip/core/constant/color.dart';
 import '../../../core/constant/routes.dart';
 import '../controller/home_controller.dart';
-
 
 class ARMapScreen extends StatelessWidget {
   const ARMapScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    late GoogleMapController mapController;
-
     return Scaffold(
+      backgroundColor: AppColor.dark,
       body: Stack(
         children: [
           GetBuilder<HomeController>(
@@ -23,20 +22,33 @@ class ARMapScreen extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              return GoogleMap(
-                zoomControlsEnabled: false,
-                onMapCreated: (controller) {
-                  mapController = controller;
-                  mapController.setMapStyle(ConstData.darkMapStyle);
-                },
-                initialCameraPosition: CameraPosition(
-                  target: controller.currentLocation!,
-                  zoom: 15.0,
+              return FlutterMap(
+                options: MapOptions(
+                  center: controller.currentLocation,
+                  zoom: 15,
+                  onTap: (tapPosition, point) {},
                 ),
-                markers: controller.markers,
-                polylines: controller.polylines,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
+                children: [
+                  TileLayer(
+                    urlTemplate: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+                    subdomains: ['a', 'b', 'c'],
+                    userAgentPackageName: 'com.example.trip',
+                  ),
+                  // CircleLayer(
+                  //   circles: [
+                  //     CircleMarker(
+                  //       point: controller.currentLocation!,
+                  //       color: Colors.blue.withOpacity(0.2),
+                  //       borderStrokeWidth: 2,
+                  //       borderColor: Colors.blue,
+                  //       radius: 100,
+                  //     ),
+                  //   ],
+                  // ),
+                  MarkerLayer(markers: controller.markers),
+
+                  PolylineLayer(polylines: controller.polylines),
+                ],
               );
             },
           ),
@@ -54,13 +66,6 @@ class ARMapScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(AppRoutes.arTakePhotoScreen);
-                  },
-                  child: const CircleButtonWidget(icon: Icons.camera_alt, height: 50, width: 50),
-                ),
-                const SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () {
                     Get.toNamed(AppRoutes.leaveTraceScreen);
                   },
                   child: const CircleButtonWidget(icon: Icons.add, height: 50, width: 50),
@@ -68,7 +73,7 @@ class ARMapScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    // Toggle actions display
+                    Get.toNamed(AppRoutes.arTakePhotoScreen);
                   },
                   child: const CircleButtonWidget(icon: Icons.fingerprint, height: 60, width: 60),
                 ),
@@ -79,65 +84,6 @@ class ARMapScreen extends StatelessWidget {
       ),
     );
   }
-
-  // List<Widget> _buildARIcons() {
-  //   final List<Offset> positions = [
-  //     const Offset(80, 150),
-  //     const Offset(200, 250),
-  //     const Offset(120, 300),
-  //     const Offset(280, 180),
-  //     const Offset(160, 450),
-  //   ];
-  //
-  //   final List<Color> colors = [
-  //     Colors.blue,
-  //     Colors.purple,
-  //     Colors.orange,
-  //     Colors.pink,
-  //     Colors.deepOrange,
-  //   ];
-  //
-  //   return List.generate(
-  //     positions.length,
-  //         (index) => Positioned(
-  //       left: positions[index].dx,
-  //       top: positions[index].dy,
-  //       child: InkWell(
-  //         onTap: () {
-  //           Get.toNamed(AppRoutes.giftCommentsScreen);
-  //         },
-  //         child: Container(
-  //           width: 60,
-  //           height: 60,
-  //           decoration: BoxDecoration(
-  //             shape: BoxShape.circle,
-  //             color: colors[index].withOpacity(0.2),
-  //             boxShadow: [
-  //               BoxShadow(
-  //                 color: colors[index].withOpacity(0.6),
-  //                 blurRadius: 25,
-  //                 spreadRadius: 5,
-  //               ),
-  //             ],
-  //           ),
-  //           child: Center(
-  //             child: Icon(
-  //               Icons.fingerprint,
-  //               color: colors[index],
-  //               size: 30,
-  //               shadows: [
-  //                 Shadow(
-  //                   color: colors[index].withOpacity(0.7),
-  //                   blurRadius: 10,
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }
 
 class CircleButtonWidget extends StatelessWidget {
@@ -156,7 +102,7 @@ class CircleButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: width / 2,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       child: Icon(icon, size: height / 2, color: Colors.blue),
     );
   }

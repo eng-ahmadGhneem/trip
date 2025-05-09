@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/constant/assets.dart';
 import '../../../core/constant/color.dart';
-import '../../../core/constant/routes.dart';
 import '../../../widget/custom_text.dart';
 import '../../../widget/custom_elevated_button.dart';
 import '../controller/auth_controller.dart';
@@ -16,17 +15,11 @@ class EmailVerificationScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColor.dark,
           title: CustomText(
-            text: 'Verification Code',
+            text: 'Verification Code'.tr,
             fontSize: 25,
             color: AppColor.lightGrey,
           ),
           centerTitle: true,
-          leading: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child:const Icon(Icons.arrow_back_ios, color: Colors.white),
-          ) ,
         ),
         backgroundColor: AppColor.dark,
         body: GetBuilder<AuthController>(builder: (controller) {
@@ -43,7 +36,7 @@ class EmailVerificationScreen extends StatelessWidget {
                   child: Center(
                     child: CustomText(
                       text:
-                          'Please check your email for the verification link and click on it.',
+                          'Please check your email for the verification link and click on it.'.tr,
                       fontSize: 18,
                       color: AppColor.lightGrey,
                     ),
@@ -51,7 +44,7 @@ class EmailVerificationScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 CustomElevatedButton(
-                  text: 'Confirmed My Email',
+                  text: 'Confirmed My Email'.tr,
                   buttonColor: AppColor.appColor,
                   onPressed: controller.checkVerification,
                 ),
