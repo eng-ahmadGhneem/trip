@@ -10,16 +10,13 @@ class Crud {
       String linkUrl, Map data, Map<String, String> header) async {
     try {
       if (await checkInternet()) {
-        print("crud checkinternet");
         var response = await http.post(
           Uri.parse(linkUrl),
           body: jsonEncode(data),
           headers: header,
         );
-        print(response);
         if (response.statusCode == 200 || response.statusCode == 201) {
           Map responseBody = jsonDecode(response.body);
-          print(response.body);
           return Right(responseBody);
         } else {
           return const Left(StatusRequest.serverFailure);
@@ -28,7 +25,6 @@ class Crud {
         return const Left(StatusRequest.offlineFailure);
       }
     } catch (e) {
-      print(e);
       return const Left(StatusRequest.serverFailure);
     }
   }

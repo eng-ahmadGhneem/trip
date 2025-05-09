@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip/widget/loading.dart';
 
 import '../core/constant/color.dart';
+import '../view/auth/controller/auth_controller.dart';
 import 'custom_text.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -27,6 +29,7 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: 50,
       width: Get.width,
       child: ElevatedButton(
 
@@ -46,16 +49,27 @@ class CustomElevatedButton extends StatelessWidget {
           ),
 
         ),
-        child: CustomText(
-          text: text,
-          alignment: Alignment.center,
-          fontSize: 16,
-          textAlign: TextAlign.center,
-          // fontWeight: FontWeight.w700,
-          color: Colors.white,
-          textOverflow: TextOverflow.visible,
+        child:
+    GetBuilder<AuthController>(
+    init: AuthController(),
+    builder: (controller) {
+
+      return LoadingManager(
+          isLoading: controller.isLoading,
+          color:AppColor.white,
+            child :CustomText(
+              text: text,
+              alignment: Alignment.center,
+              fontSize: 16,
+              textAlign: TextAlign.center,
+              // fontWeight: FontWeight.w700,
+              color: Colors.white,
+              textOverflow: TextOverflow.visible,
+            ),
+          );
+    })
         ),
-      ),
+
     );
   }
 }

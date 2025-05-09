@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:trip/core/constant/assets.dart';
 import 'package:trip/core/constant/color.dart';
-import 'package:trip/view/account/screen/account_screen.dart';
+import 'package:trip/view/account/setting_profile/screen/settings_screen.dart';
 import 'package:trip/widget/drawr_item.dart';
 
 import '../view/home/screen/home_screen.dart';
 
 
 class MyDrawer extends StatefulWidget {
-  const MyDrawer({Key? key}) : super(key: key);
+  const MyDrawer({super.key});
 
   @override
   State<MyDrawer> createState() => _MyDrawerState();
@@ -31,7 +31,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 child: DrawerItem(
                   name: 'Home',
                   icon: Icons.home,
-                  onPressd: () => onItemPressed(context, index: 0),
+                  onTap: () => onItemPressed(context, index: 0),
                 ),
               ),
               const Divider(
@@ -43,7 +43,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 child: DrawerItem(
                   name: 'Upgrade',
                   icon: Icons.update,
-                  onPressd: () => onItemPressed(context, index: 1),
+                  onTap: () => onItemPressed(context, index: 1),
                 ),
               ),
               const Divider(
@@ -55,7 +55,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 child: DrawerItem(
                     name: 'Settings',
                     icon: Icons.settings,
-                    onPressd: () => onItemPressed(context, index: 2)),
+                    onTap: () => onItemPressed(context, index: 2)),
               ),
               const Divider(
                 height: 2,
@@ -68,10 +68,10 @@ class _MyDrawerState extends State<MyDrawer> {
                 child: DrawerItem(
                     name: 'Share App',
                     icon: Icons.share,
-                    onPressd: () => onItemPressed(context, index: 4)),
+                    onTap: () => onItemPressed(context, index: 4)),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],
@@ -86,7 +86,7 @@ class _MyDrawerState extends State<MyDrawer> {
     switch (index) {
       case 0:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ARMapScreen()));
+            context, MaterialPageRoute(builder: (context) => const ARMapScreen()));
         break;
       case 1:
         // fetchOffers();
@@ -96,7 +96,7 @@ class _MyDrawerState extends State<MyDrawer> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProfileScreen()));
+                builder: (context) => const SettingsScreen()));
 
         break;
         case 3:
@@ -114,7 +114,7 @@ class _MyDrawerState extends State<MyDrawer> {
   }
 
   Widget headerWiget() {
-    return Column(
+    return const Column(
       children: [
         CircleAvatar(
           backgroundImage: AssetImage(Assets.logo),
@@ -123,7 +123,7 @@ class _MyDrawerState extends State<MyDrawer> {
         SizedBox(
           height: 20,
         ),
-        const Text(
+        Text(
           "EZE LINE",
           style: TextStyle(
               color: AppColor.appColor,
@@ -131,7 +131,7 @@ class _MyDrawerState extends State<MyDrawer> {
               fontWeight: FontWeight.bold,
               fontFamily: "Montserrat"),
         ),
-        const SizedBox(
+        SizedBox(
           height: 40,
         ),
       ],

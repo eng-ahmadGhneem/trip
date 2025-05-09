@@ -65,6 +65,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'relic-707e7.appspot.com',
     androidClientId: '649161144772-ujo8jl5jt25eg99l882g2u0ri0hb1dm5.apps.googleusercontent.com',
     iosClientId: '649161144772-6knsgf7feau9rhlvqp4n5pb6nk0n6bk1.apps.googleusercontent.com',
-    iosBundleId: 'com.example.trip',
+    iosBundleId: 'com.hasanahmad.trip',
   );
 }

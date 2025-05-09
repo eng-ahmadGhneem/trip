@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:trip/core/constant/routes.dart';
 import '../../../core/constant/assets.dart';
 import '../../../core/constant/color.dart';
+import '../../../widget/custom_elevated_button.dart';
 import '../../../widget/custom_text.dart';
 import '../../../widget/custom_text_form_filed.dart';
 import '../controller/auth_controller.dart';
@@ -27,18 +28,10 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Center(
-                        child: CustomText(
-                          text: 'Sign In',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: AppColor.white,
-                        ),
-                      ),
                       const SizedBox(height: 50),
                       Center(
                         child: CustomText(
-                          text: 'Welcome to The World\nGifts Shop Your Specials',
+                          text: 'Welcome to The Special World'.tr,
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
                           color: AppColor.white,
@@ -56,63 +49,53 @@ class LoginScreen extends StatelessWidget {
 
                       // Email field
                       CustomTextForm(
-                        mycontroller: controller.emailController,
+                        myController: controller.emailController,
                         iconPrefixData: Icons.email,
-                        hintText: "Email Address",
+                        hintText: "Email Address".tr,
                         keyboardType: TextInputType.emailAddress,
                         valid: (value) {
                           if (value!.isEmpty) {
-                            return 'Please enter your email address';
+                            return 'Please enter your email address'.tr;
                           } else if (!RegExp(
                               r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
                               .hasMatch(value)) {
-                            return 'Please enter a valid email address';
+                            return 'Please enter a valid email address'.tr;
                           }
                           return null;
                         },
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 8),
 
                       // Password field
                       CustomTextForm(
-                        mycontroller: controller.passwordController,
+                        myController: controller.passwordController,
                         iconPrefixData: Icons.lock,
-                        hintText: "Password",
+                        hintText: "Password".tr,
                         valid: (value) {
                           if (value!.isEmpty) {
-                            return 'Please enter your password';
+                            return 'Please enter your password'.tr;
                           }
                           return null;
                         },
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 30),
 
                       // Login button
-                      GestureDetector(
-                        onTap: () {
+
+                      CustomElevatedButton(
+                        text: 'Log In',
+                        buttonColor: AppColor.appColor,
+                        onPressed: () {
                           if (controller.formKeyLog.currentState!.validate()) {
                             controller.loginWithEmail(
                               controller.emailController.text.trim(),
                               controller.passwordController.text.trim(),
                             );
                           }
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          decoration: BoxDecoration(
-                            color: AppColor.appColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Center(
-                            child: CustomText(
-                              text: 'Log In',
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                          }
+
                       ),
 
                       const SizedBox(height: 20),
@@ -125,20 +108,16 @@ class LoginScreen extends StatelessWidget {
                              await controller.signInWithGoogle();
                            },
                            child: Container(
-                             width: 60,
-                             height: 60,
+                             width: 40,
+                             height: 40,
                              decoration: const BoxDecoration(
-                               color: Colors.blue,
+                               // color: Colors.blue,
                                shape: BoxShape.circle,
                              ),
-                             child: const Icon(
-                               Icons.g_mobiledata,
-                               color: Colors.white,
-                               size: 40,
-                             ),
+                             child: const Image(image: AssetImage(Assets.googleIcon)),
                            ),
                          ),
-                         const SizedBox(width: 20),
+                         const SizedBox(width: 30),
                          GestureDetector(
                            onTap: () async {
                              final credential = await SignInWithApple.getAppleIDCredential(
@@ -147,7 +126,7 @@ class LoginScreen extends StatelessWidget {
                                  AppleIDAuthorizationScopes.fullName,
                                ],
                              );
-                             print(credential);
+                             throw (credential);
                            },
                            child: Icon(
                              Icons.apple,  color: AppColor.white,
@@ -163,33 +142,35 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomText(
-                            text: 'Don\'t have an account? ',
-                            fontSize: 14,
+                            text: 'Don\'t have an account? '.tr,
+                            fontSize: 16,
                             color: AppColor.lightGrey,
                           ),
+                          const SizedBox(width: 10,) ,
                           GestureDetector(
                             onTap: () {
                               Get.toNamed(AppRoutes.registerScreen);
                             },
                             child: CustomText(
-                              text: 'Signup here!',
+                              text: 'Signup here!'.tr,
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 16,
                               color: AppColor.lightGrey,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ],
                       ),
-
+                      const SizedBox(height: 10),
                       TextButton(
                         onPressed: () {
                           Get.toNamed(AppRoutes.forgotPasswordScreen);
                         },
-                        child: const Text(
-                          'Forgot password?',
-                          style: TextStyle(
+                        child:  Text(
+                          'Forgot your password?'.tr,
+                          style:const TextStyle(
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 16,
                             decoration: TextDecoration.underline,
                           ),
                         ),

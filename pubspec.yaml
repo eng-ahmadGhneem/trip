@@ -1,6 +1,6 @@
 name: trip
 description: "A new Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -11,19 +11,20 @@ dependencies:
   flutter:
     sdk: flutter
   get: ^4.6.6
+  camera: ^0.10.1
+  audioplayers: ^6.4.0
   http: ^1.1.0
-  csv: ^5.0.2
+  csv: ^6.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  lottie: ^2.6.0
+  lottie:
   sms_autofill: ^2.4.1
   pin_code_fields: ^8.0.1
-  carousel_slider: ^4.0.0
   shared_preferences: ^2.2.1
   url_launcher: ^6.1.14
-  google_sign_in:
-  flutter_email_sender:
-  youtube_player_flutter: ^8.1.0
+  google_sign_in: ^6.1.6
+  flutter_email_sender: ^7.0.0
+  icons_plus: ^5.0.0
   curved_navigation_bar: ^1.0.3
   flutter_settings_screens: ^0.3.2
   awesome_dialog: ^3.2.1
@@ -31,19 +32,22 @@ dependencies:
   firebase_auth: any
   cloud_firestore: any
   intl: ^0.20.2
-  flutter_reaction_button: ^2.0.0
-  share_plus: ^6.0.0
   cupertino_icons: ^1.0.6
   image_picker: ^1.0.4
-  firebase_storage: ^11.6.6
+  firebase_storage: any
   google_maps_flutter: ^2.5.0
   dartz: ^0.10.1
   sign_in_with_apple: ^7.0.1
-  font_awesome_flutter: ^10.8.0
+  #geolocator: ^14.0.0
+  geolocator: ^9.0.2
+  font_awesome_flutter: ^10.5.0
+  flutter_polyline_points: ^2.0.0
+#  arcore_flutter_plugin: ^0.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 flutter:
 
   uses-material-design: true
@@ -51,6 +55,7 @@ flutter:
     - assets/images/
     - assets/animation/
     - assets/icons/
+    - assets/notifications/
   fonts:
     - family: Neo Sans Arabic
       fonts:

@@ -1,126 +1,158 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:trip/core/constant/color.dart';
+import '../../../core/constant/const_data.dart';
+import '../../../core/constant/routes.dart';
+import '../controller/home_controller.dart';
 
-class ARMapScreen extends StatefulWidget {
+
+class ARMapScreen extends StatelessWidget {
   const ARMapScreen({super.key});
 
   @override
-  State<ARMapScreen> createState() => _ARMapScreenState();
-}
-
-class _ARMapScreenState extends State<ARMapScreen> {
-  late GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(36.1911, 44.0090);
-
-  @override
   Widget build(BuildContext context) {
+    late GoogleMapController mapController;
+
     return Scaffold(
+      backgroundColor: AppColor.dark,
       body: Stack(
         children: [
-          // Google Map
-          GoogleMap(
-            onMapCreated: (controller) {
-              mapController = controller;
+          GetBuilder<HomeController>(
+            init: HomeController(),
+            builder: (controller) {
+              if (controller.currentLocation == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return GoogleMap(
+                zoomControlsEnabled: false,
+                onMapCreated: (controller) {
+                  mapController = controller;
+                  mapController.setMapStyle(ConstData.darkMapStyle);
+                },
+                initialCameraPosition: CameraPosition(
+                  target: controller.currentLocation!,
+                  zoom: 15.0,
+                ),
+                markers: controller.markers,
+                polylines: controller.polylines,
+                myLocationEnabled: true ,
+                myLocationButtonEnabled: false,
+              );
             },
-            initialCameraPosition: CameraPosition(
-              target: _center,
-              zoom: 14.0,
-            ),
-            mapType: MapType.normal,
-            zoomControlsEnabled: false,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
           ),
-
-          // بصمات AR
-          ..._buildARIcons(),
-
-          // الأزرار العائمة
           Positioned(
             right: 16,
-            bottom: 100,
+            bottom: 10,
             child: Column(
               children: [
-                _buildCircleButton(Icons.notifications),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.notificationScreen);
+                  },
+                  child: const CircleButtonWidget(icon: Icons.notifications, height: 40, width: 40),
+                ),
                 const SizedBox(height: 10),
-                _buildCircleButton(Icons.camera_alt),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.leaveTraceScreen);
+                  },
+                  child: const CircleButtonWidget(icon: Icons.add, height: 50, width: 50),
+                ),
                 const SizedBox(height: 10),
-                _buildCircleButton(Icons.add),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.arTakePhotoScreen);
+                  },
+                  child: const CircleButtonWidget(icon: Icons.fingerprint, height: 60, width: 60),
+                ),
               ],
             ),
           ),
         ],
       ),
-
-      // Bottom Navigation
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: 1,
-      //   selectedItemColor: Colors.blue,
-      //   unselectedItemColor: Colors.grey[600],
-      //   backgroundColor: Colors.black,
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.fingerprint),
-      //       label: '',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.card_giftcard),
-      //       label: '',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //       label: '',
-      //     ),
-      //   ],
-      // ),
     );
   }
 
-  // بصمات AR
-  List<Widget> _buildARIcons() {
-    final List<Offset> positions = [
-      const Offset(80, 150),
-      const Offset(200, 250),
-      const Offset(120, 300),
-      const Offset(280, 180),
-      const Offset(160, 450),
-    ];
+  // List<Widget> _buildARIcons() {
+  //   final List<Offset> positions = [
+  //     const Offset(80, 150),
+  //     const Offset(200, 250),
+  //     const Offset(120, 300),
+  //     const Offset(280, 180),
+  //     const Offset(160, 450),
+  //   ];
+  //
+  //   final List<Color> colors = [
+  //     Colors.blue,
+  //     Colors.purple,
+  //     Colors.orange,
+  //     Colors.pink,
+  //     Colors.deepOrange,
+  //   ];
+  //
+  //   return List.generate(
+  //     positions.length,
+  //         (index) => Positioned(
+  //       left: positions[index].dx,
+  //       top: positions[index].dy,
+  //       child: InkWell(
+  //         onTap: () {
+  //           Get.toNamed(AppRoutes.giftCommentsScreen);
+  //         },
+  //         child: Container(
+  //           width: 60,
+  //           height: 60,
+  //           decoration: BoxDecoration(
+  //             shape: BoxShape.circle,
+  //             color: colors[index].withOpacity(0.2),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                 color: colors[index].withOpacity(0.6),
+  //                 blurRadius: 25,
+  //                 spreadRadius: 5,
+  //               ),
+  //             ],
+  //           ),
+  //           child: Center(
+  //             child: Icon(
+  //               Icons.fingerprint,
+  //               color: colors[index],
+  //               size: 30,
+  //               shadows: [
+  //                 Shadow(
+  //                   color: colors[index].withOpacity(0.7),
+  //                   blurRadius: 10,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+}
 
-    final List<Color> colors = [
-      Colors.orange,
-      Colors.blue,
-      Colors.purpleAccent,
-      Colors.orange,
-      Colors.blue,
-    ];
+class CircleButtonWidget extends StatelessWidget {
+  final IconData icon;
+  final double height;
+  final double width;
 
-    return List.generate(
-      positions.length,
-          (index) => Positioned(
-        left: positions[index].dx,
-        top: positions[index].dy,
-        child: Icon(
-          Icons.fingerprint,
-          color: colors[index],
-          size: 40,
-          shadows: [
-            Shadow(
-              color: colors[index].withOpacity(0.7),
-              blurRadius: 20,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  const CircleButtonWidget({
+    super.key,
+    required this.icon,
+    required this.height,
+    required this.width,
+  });
 
-  // زر دائري جانبي
-  Widget _buildCircleButton(IconData icon) {
+  @override
+  Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 24,
-      backgroundColor: Colors.blue,
-      child: Icon(icon, color: Colors.white),
+      radius: width / 2,
+      backgroundColor: Colors.transparent,
+      child: Icon(icon, size: height / 2, color: Colors.blue),
     );
   }
 }

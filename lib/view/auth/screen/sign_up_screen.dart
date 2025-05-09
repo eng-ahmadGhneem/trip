@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:trip/core/constant/color.dart';
 import 'package:trip/widget/custom_elevated_button.dart';
 import 'package:trip/widget/custom_text_form_filed.dart';
-import '../../../core/constant/assets.dart';
 import '../../../core/constant/routes.dart';
 import '../../../widget/custom_text.dart';
 import '../controller/auth_controller.dart';
@@ -16,6 +15,21 @@ class RegisterScreen extends StatelessWidget {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.dark,
+        title: CustomText(
+          text: 'Sign up'.tr,
+          fontSize: 25,
+          color: AppColor.lightGrey,
+        ),
+        centerTitle: true,
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child:const Icon(Icons.arrow_back_ios, color: Colors.white),
+        ) ,
+      ),
       backgroundColor: AppColor.dark,
       body: GetBuilder<AuthController>(
         builder: (controller) {
@@ -25,64 +39,39 @@ class RegisterScreen extends StatelessWidget {
               key: formKey,
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(AppRoutes.login);
-                        },
-                        child: Image.asset(
-                          Assets.arrowBack,
-                          color: AppColor.white,
-                          fit: BoxFit.fill,
-                          height: 20,
-                          width: 20,
-                        ),
-                      ),
-                      const Spacer(),
-                      CustomText(
-                        text: 'Sign up',
-                        fontSize: 25,
-                        color: AppColor.lightGrey,
-                      ),
-                      const Spacer()
-                    ],
-                  ),
-                  const SizedBox(height: 40),
                   GestureDetector(
                     onTap: controller.pickProfileImage,
                     child: CircleAvatar(
+                      backgroundColor: AppColor.lightGrey,
                       radius: 50,
                       backgroundImage: controller.profileImage != null
                           ? FileImage(controller.profileImage!)
                           : null,
                       child: controller.profileImage == null
-                          ? const Icon(Icons.camera_alt, size: 40, color: Colors.white)
+                          ? const Icon(Icons.camera_alt, size: 40, color: AppColor.appColor)
                           : null,
                     ),
                   ),
                   const SizedBox(height: 15),
                   CustomTextForm(
-                    mycontroller: controller.usernameController,
-                    hintText: "Enter your name",
+                    myController: controller.usernameController,
+                    hintText: "Enter your name".tr,
                     iconPrefixData: Icons.person,
-                    valid: (val) => val == null || val.isEmpty ? 'Enter your name' : null,
+                    valid: (val) => val == null || val.isEmpty ? 'Enter your name'.tr : null,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   CustomTextForm(
-                    mycontroller: controller.emailController,
-                    hintText: "Enter your email",
+                    myController: controller.emailController,
+                    hintText: "Enter your email".tr,
                     iconPrefixData: Icons.email,
                     keyboardType: TextInputType.emailAddress,
                     valid: (val) =>
-                    !GetUtils.isEmail(val!) ? 'Enter a valid email' : null,
+                    !GetUtils.isEmail(val!) ? 'Enter a valid email'.tr : null,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   CustomTextForm(
-                    mycontroller: controller.birthdateController,
-                    hintText: "Date of Birth",
+                    myController: controller.birthdateController,
+                    hintText: "Date of Birth".tr,
                     iconPrefixData: Icons.calendar_today,
                     readOnly: true,
                     onTap: () async {
@@ -98,44 +87,45 @@ class RegisterScreen extends StatelessWidget {
                       }
                     },
                     valid: (val) =>
-                    val == null || val.isEmpty ? 'Enter birthdate' : null,
+                    val == null || val.isEmpty ? 'Enter birthdate'.tr : null,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   CustomTextForm(
-                    mycontroller: controller.passwordController,
-                    hintText: "Password",
-                    obscuretext: true,
+                    myController: controller.passwordController,
+                    hintText: "Password".tr,
+                    obscureText: true,
                     iconPrefixData: Icons.lock,
                     valid: (val) => val != null && val.length >= 6
                         ? null
-                        : 'Password must be at least 6 characters',
+                        : 'Password must be at least 6 characters'.tr,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   CustomTextForm(
-                    mycontroller: controller.confirmPasswordController,
-                    hintText: "Confirm Password",
-                    obscuretext: true,
+                    myController: controller.confirmPasswordController,
+                    hintText: "Confirm Password".tr,
+                    obscureText: true,
                     iconPrefixData: Icons.lock,
                     valid: (val) =>
                     val == controller.passwordController.text
                         ? null
-                        : 'Passwords do not match',
+                        : 'Passwords do not match'.tr,
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
-                      const Text("Gender: ", style: TextStyle(color: Colors.white)),
+                      const Text("Gender: ", style: TextStyle(color: Colors.white , fontSize: 16)),
+                      const SizedBox(width: 8,) ,
                       Expanded(
                         child: Obx(() => DropdownButton<String>(
                           value: controller.gender.value,
                           isExpanded: true,
                           dropdownColor: Colors.black,
                           style: const TextStyle(color: Colors.white),
-                          items: const [
+                          items:  [
                             DropdownMenuItem(
-                                value: 'Male', child: Text("Male")),
+                                value: 'Male', child: Text("Male".tr , style:const TextStyle(color: Colors.white , fontSize: 16),)),
                             DropdownMenuItem(
-                                value: 'Female', child: Text("Female")),
+                                value: 'Female', child: Text("Female".tr , style:const TextStyle(color: Colors.white , fontSize: 16),)),
                           ],
                           onChanged: (value) {
                             if (value != null) {
@@ -148,7 +138,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   CustomElevatedButton(
-                    text: 'Register',
+                    text: 'Register'.tr,
                     buttonColor: AppColor.appColor,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
