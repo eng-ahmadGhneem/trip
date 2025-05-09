@@ -37,7 +37,7 @@ class ARMapScreen extends StatelessWidget {
                 ),
                 markers: controller.markers,
                 polylines: controller.polylines,
-                myLocationEnabled: true,
+                myLocationEnabled: true ,
                 myLocationButtonEnabled: false,
               );
             },
