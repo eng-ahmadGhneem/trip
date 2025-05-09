@@ -97,7 +97,7 @@ class EditProfileScreen extends StatelessWidget {
                       buttonColor: AppColor.appColor,
                       onPressed: () async {
                       
-                       await controller.updateUserAccount(
+                       await controller.updateUserAcount(
                           controller.userNameController.text,
                           controller.userNumberController.text,
                         );

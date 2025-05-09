@@ -1,13 +1,9 @@
-import 'dart:math';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-import '../../../core/constant/assets.dart';
+import 'package:trip/core/constant/routes.dart';
 import '../../../core/constant/color.dart';
 import '../../../widget/custom_button_navbar_widget.dart';
-import '../../gifts/gift_controller/gift_controller.dart';
 import '../../gifts/screen/gifts_screen.dart';
 import '../../leave_a_trace/screen/leave_a_trace_screen.dart';
 import '../../scanner/scanner_screen/scanner_screen.dart';
@@ -167,11 +163,6 @@ class ArTakePhotoScreen extends StatelessWidget {
       backgroundColor: AppColor.dark,
       appBar: AppBar(
         backgroundColor: AppColor.dark,
-        title: const Text(
-          'Add Trace',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.grey),
-        ),
-        centerTitle: true ,
         leading:  IconButton(
           icon:  const Icon(
             Icons.arrow_back_ios,
@@ -199,7 +190,7 @@ class ArTakePhotoScreen extends StatelessWidget {
               child: Obx(() {
                 if (controller.selectedPage.value == 0) {
                   return  Center(
-                    child: Text("Scanner Mode".tr, style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+                    child: Text("AR Mode".tr, style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
                   );
                 } else if (controller.selectedPage.value == 1) {
                   return  Center(//Gift Mode
@@ -239,9 +230,7 @@ class ArTakePhotoScreen extends StatelessWidget {
                           Get.to(LeaveTraceScreen());
                       }
                       else if(controller.selectedPage.value == 2){
-                       
-                      
-                        Get.to(GiftsMapScreen());
+                         Get.toNamed(AppRoutes.giftsShoppingListScreen);
                       }
                       
                     },

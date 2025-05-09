@@ -15,7 +15,7 @@ class EditProfileController extends GetxController {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController userNumberController = TextEditingController();
-  final AccountController accountController = Get.put(AccountController());
+  final AccountController accountcontroller = Get.put(AccountController());
   UserCredential? userCredential;
   File? profileImage;
   var imageUrl;
@@ -29,7 +29,7 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future updateUserAccount(String newName, String phoneNumber) async {
+  Future updateUserAcount(String newName, String phoneNumber) async {
     try {
       isLoading = true; 
       update();
@@ -53,10 +53,10 @@ class EditProfileController extends GetxController {
         }
       }
         await user!.updatePhotoURL(imageUrl);
-        accountController.fetchUserData();
+        accountcontroller.fetchUserData();
       //   print('Update Photo Done............');
       // }
-      await user.reload();
+      await user!.reload();
       isLoading = false;
     } catch (xerroe) {
       print('some thing wrong ${xerroe}');

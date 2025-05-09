@@ -24,12 +24,15 @@ class AppHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             !optionsSettings
-                ? InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Icon(Icons.arrow_back_ios, color: AppColor.white),
-                  )
+                ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(Icons.arrow_back_ios, color: AppColor.white),
+                    ),
+                )
                 : Container(),
             const Spacer(),
             CustomText(
@@ -38,9 +41,6 @@ class AppHeader extends StatelessWidget {
               color: AppColor.white,
             ),
             const Spacer(),
-            optionsSettings
-                ? Icon(Icons.more_vert, color: AppColor.white)
-                : Container(),
           ],
         ),
         const SizedBox(
